@@ -49,6 +49,11 @@ public class Games extends AppCompatActivity {
                 Ko_Zna_Zna.setBackgroundResource(R.drawable.round_white);
                 asosijacije.setBackgroundResource(R.drawable.round_white);
 
+                Intent intent = new Intent(Games.this, KorakPoKorakActivity.class);
+                intent.putExtra("selectedGame", selectedGameName);
+                startActivity(intent);
+
+
             }
         });
 
@@ -63,6 +68,10 @@ public class Games extends AppCompatActivity {
                 Ko_Zna_Zna.setBackgroundResource(R.drawable.round_white);
                 Korak_po_Korak.setBackgroundResource(R.drawable.round_white);
 
+                Intent intent = new Intent(Games.this, AsosijacijeActivity.class);
+                intent.putExtra("selectedGame", selectedGameName);
+                startActivity(intent);
+
             }
         });
 
@@ -73,7 +82,7 @@ public class Games extends AppCompatActivity {
                     Toast.makeText(Games.this, "Please select a game", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    final Intent intent = new Intent(Games.this, QuizActivity.class);
+                    final Intent intent = new Intent(Games.this, KoZnaZnaActivity.class);
                     intent.putExtra("selectedGame", selectedGameName);
                     startActivity(intent);
                 }
@@ -82,36 +91,5 @@ public class Games extends AppCompatActivity {
 
 
     }
-
-
-//    public void koZnaZna(View v) {
-//        Intent intent = new Intent(this, KoZnaZna.class);
-//        startActivity(intent);
-//    }
-//
-//    public void spojnice(View v) {
-//        Intent intent = new Intent(this, Spojnice.class);
-//        startActivity(intent);
-//    }
-//
-//    public void asosijacije(View v) {
-//        Intent intent = new Intent(this, Asosijacije.class);
-//        startActivity(intent);
-//    }
-//
-//    public void skocko(View v) {
-//        Intent intent = new Intent(this, Skocko.class);
-//        startActivity(intent);
-//    }
-//
-//    public void korakPoKorak(View v) {
-//        Intent intent = new Intent(this, KorakPoKorak.class);
-//        startActivity(intent);
-//    }
-//
-//    public void mojBroj(View v) {
-//        Intent intent = new Intent(this, MojBroj.class);
-//        startActivity(intent);
-//    }
 
 }

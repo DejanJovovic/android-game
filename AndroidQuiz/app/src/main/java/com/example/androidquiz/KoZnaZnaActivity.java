@@ -26,7 +26,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class QuizActivity extends AppCompatActivity {
+public class KoZnaZnaActivity extends AppCompatActivity {
 
     private TextView questions;
     private TextView question;
@@ -40,7 +40,7 @@ public class QuizActivity extends AppCompatActivity {
 
     private int seconds = 0;
 
-    private List<QuestionsList> questionsLists = new ArrayList<>();
+    private List<KoZnaZnaList> koZnaZnaLists = new ArrayList<>();
     private int currentQuestionPosition = 0;
 
     private String selectedOptionByUser = "";
@@ -48,7 +48,7 @@ public class QuizActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quiz);
+        setContentView(R.layout.activity_ko_zna_zna);
 
         final String getSelectedGameName = getIntent().getStringExtra("selectedGame");
 
@@ -71,18 +71,10 @@ public class QuizActivity extends AppCompatActivity {
         nextBtn = findViewById(R.id.nextBtn);
 
 
-//        questions.setText((currentQuestionPosition+1)+ "/" + questionsLists.size());
-//        question.setText(questionsLists.get(0).getQuestion());
-//        option1.setText(questionsLists.get(0).getOption1());
-//        option2.setText(questionsLists.get(0).getOption2());
-//        option3.setText(questionsLists.get(0).getOption3());
-//        option4.setText(questionsLists.get(0).getOption4());
-
-        //questionsLists = QuestionsBank.getQuestions(getSelectedGameName);
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://androidquiz-ffbad-default-rtdb.firebaseio.com/");
 
         //show dialog while questions are being fetched
-        ProgressDialog progressDialog = new ProgressDialog(QuizActivity.this);
+        ProgressDialog progressDialog = new ProgressDialog(KoZnaZnaActivity.this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading...");
         progressDialog.show();
@@ -107,20 +99,20 @@ public class QuizActivity extends AppCompatActivity {
                     final String getAnswer = dataSnapshot.child("answer").getValue(String.class);
 
                     //adding data to the questionsList
-                    QuestionsList questionsList = new QuestionsList(getQuestion, getOption1,
+                    KoZnaZnaList koZnaZnaList = new KoZnaZnaList(getQuestion, getOption1,
                             getOption2, getOption3, getOption4, getAnswer);
-                    questionsLists.add(questionsList);
+                    koZnaZnaLists.add(koZnaZnaList);
 
 //                    //hide dialog
                     progressDialog.hide();
 
                     //set current question to TextView
-                    questions.setText((currentQuestionPosition+1)+ "/" + questionsLists.size());
-                    question.setText(questionsLists.get(0).getQuestion());
-                    option1.setText(questionsLists.get(0).getOption1());
-                    option2.setText(questionsLists.get(0).getOption2());
-                    option3.setText(questionsLists.get(0).getOption3());
-                    option4.setText(questionsLists.get(0).getOption4());
+                    questions.setText((currentQuestionPosition+1)+ "/" + koZnaZnaLists.size());
+                    question.setText(koZnaZnaLists.get(0).getQuestion());
+                    option1.setText(koZnaZnaLists.get(0).getOption1());
+                    option2.setText(koZnaZnaLists.get(0).getOption2());
+                    option3.setText(koZnaZnaLists.get(0).getOption3());
+                    option4.setText(koZnaZnaLists.get(0).getOption4());
 
                     //start timer after data has fetched from firebase
                     startTimer(timer);
@@ -147,7 +139,7 @@ public class QuizActivity extends AppCompatActivity {
 
                     revealAnswer();
 
-                    questionsLists.get(currentQuestionPosition).setUserSelectedAnswer(selectedOptionByUser);
+                    koZnaZnaLists.get(currentQuestionPosition).setUserSelectedAnswer(selectedOptionByUser);
 
                 }
 
@@ -166,7 +158,7 @@ public class QuizActivity extends AppCompatActivity {
 
                     revealAnswer();
 
-                    questionsLists.get(currentQuestionPosition).setUserSelectedAnswer(selectedOptionByUser);
+                    koZnaZnaLists.get(currentQuestionPosition).setUserSelectedAnswer(selectedOptionByUser);
 
                 }
 
@@ -186,7 +178,7 @@ public class QuizActivity extends AppCompatActivity {
 
                     revealAnswer();
 
-                    questionsLists.get(currentQuestionPosition).setUserSelectedAnswer(selectedOptionByUser);
+                    koZnaZnaLists.get(currentQuestionPosition).setUserSelectedAnswer(selectedOptionByUser);
 
                 }
 
@@ -205,7 +197,7 @@ public class QuizActivity extends AppCompatActivity {
 
                     revealAnswer();
 
-                    questionsLists.get(currentQuestionPosition).setUserSelectedAnswer(selectedOptionByUser);
+                    koZnaZnaLists.get(currentQuestionPosition).setUserSelectedAnswer(selectedOptionByUser);
 
                 }
 
@@ -219,7 +211,7 @@ public class QuizActivity extends AppCompatActivity {
 
 
                 if(selectedOptionByUser.isEmpty()){
-                    Toast.makeText(QuizActivity.this, "Please select an option", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(KoZnaZnaActivity.this, "Please select an option", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     changeNextQuesiton();
@@ -236,7 +228,7 @@ public class QuizActivity extends AppCompatActivity {
                 quizTimer.purge();
                 quizTimer.cancel();
 
-                startActivity(new Intent(QuizActivity.this, Games.class));
+                startActivity(new Intent(KoZnaZnaActivity.this, Games.class));
                 finish();
             }
         });
@@ -246,10 +238,10 @@ public class QuizActivity extends AppCompatActivity {
     private void changeNextQuesiton(){
         currentQuestionPosition++;
 
-        if((currentQuestionPosition+1) == questionsLists.size()){
+        if((currentQuestionPosition+1) == koZnaZnaLists.size()){
             nextBtn.setText("Submit Quiz");
         }
-        if(currentQuestionPosition < questionsLists.size()){
+        if(currentQuestionPosition < koZnaZnaLists.size()){
             selectedOptionByUser = "";
 
             option1.setBackgroundResource(R.drawable.round_back_white_stroke2_10);
@@ -265,16 +257,16 @@ public class QuizActivity extends AppCompatActivity {
             option4.setTextColor(Color.parseColor("#1F6BBB"));
 
 
-            questions.setText((currentQuestionPosition+1)+ "/" + questionsLists.size());
-            question.setText(questionsLists.get(currentQuestionPosition).getQuestion());
-            option1.setText(questionsLists.get(currentQuestionPosition).getOption1());
-            option2.setText(questionsLists.get(currentQuestionPosition).getOption2());
-            option3.setText(questionsLists.get(currentQuestionPosition).getOption3());
-            option4.setText(questionsLists.get(currentQuestionPosition).getOption4());
+            questions.setText((currentQuestionPosition+1)+ "/" + koZnaZnaLists.size());
+            question.setText(koZnaZnaLists.get(currentQuestionPosition).getQuestion());
+            option1.setText(koZnaZnaLists.get(currentQuestionPosition).getOption1());
+            option2.setText(koZnaZnaLists.get(currentQuestionPosition).getOption2());
+            option3.setText(koZnaZnaLists.get(currentQuestionPosition).getOption3());
+            option4.setText(koZnaZnaLists.get(currentQuestionPosition).getOption4());
 
         }
         else {
-            Intent intent = new Intent(QuizActivity.this, QuizResults.class);
+            Intent intent = new Intent(KoZnaZnaActivity.this, QuizResults.class);
             intent.putExtra("correct", getCorrectAnswers());
             intent.putExtra("incorrect", getInCorrectAnswers());
             startActivity(intent);
@@ -297,9 +289,9 @@ public class QuizActivity extends AppCompatActivity {
                     quizTimer.purge();
                     quizTimer.cancel();
 
-                    Toast.makeText(QuizActivity.this, "Time over!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(KoZnaZnaActivity.this, "Time over!", Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(QuizActivity.this, QuizResults.class);
+                    Intent intent = new Intent(KoZnaZnaActivity.this, QuizResults.class);
                     intent.putExtra("correct", getCorrectAnswers());
                     intent.putExtra("incorrect", getInCorrectAnswers());
                     startActivity(intent);
@@ -338,9 +330,9 @@ public class QuizActivity extends AppCompatActivity {
     private int getCorrectAnswers(){
         int correctAnswers = 0;
 
-        for(int i=0;i<questionsLists.size();i++){
-            final String getUserSelectedAnswer = questionsLists.get(i).getUserSelectedAnswer();
-            final String getAnswer = questionsLists.get(i).getAnswer();
+        for(int i = 0; i< koZnaZnaLists.size(); i++){
+            final String getUserSelectedAnswer = koZnaZnaLists.get(i).getUserSelectedAnswer();
+            final String getAnswer = koZnaZnaLists.get(i).getAnswer();
 
             if(getUserSelectedAnswer.equals(getAnswer)) {
                 correctAnswers++;
@@ -352,9 +344,9 @@ public class QuizActivity extends AppCompatActivity {
     private int getInCorrectAnswers(){
         int correctAnswers = 0;
 
-        for(int i=0;i<questionsLists.size();i++){
-            final String getUserSelectedAnswer = questionsLists.get(i).getUserSelectedAnswer();
-            final String getAnswer = questionsLists.get(i).getAnswer();
+        for(int i = 0; i< koZnaZnaLists.size(); i++){
+            final String getUserSelectedAnswer = koZnaZnaLists.get(i).getUserSelectedAnswer();
+            final String getAnswer = koZnaZnaLists.get(i).getAnswer();
 
             if(!getUserSelectedAnswer.equals(getAnswer)) {
                 correctAnswers++;
@@ -368,13 +360,13 @@ public class QuizActivity extends AppCompatActivity {
         quizTimer.purge();
         quizTimer.cancel();
 
-        startActivity(new Intent(QuizActivity.this, Games.class));
+        startActivity(new Intent(KoZnaZnaActivity.this, Games.class));
         finish();
     }
 
 
     private void revealAnswer(){
-        final String getAnswer = questionsLists.get(currentQuestionPosition).getAnswer();
+        final String getAnswer = koZnaZnaLists.get(currentQuestionPosition).getAnswer();
 
         if(option1.getText().toString().equals(getAnswer)){
             option1.setBackgroundResource(R.drawable.round_green_reveal);

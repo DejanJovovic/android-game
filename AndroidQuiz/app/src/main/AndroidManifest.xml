@@ -20,7 +20,7 @@
             android:name=".AsosijacijeActivity"
             android:exported="false" />
         <activity
-            android:name=".QuizActivity"
+            android:name=".KoZnaZnaActivity"
             android:exported="false" />
         <activity
             android:name=".QuizResults"
@@ -30,23 +30,11 @@
             android:exported="false"
             android:parentActivityName=".Games" />
         <activity
-            android:name=".KorakPoKorak"
-            android:exported="false"
-            android:parentActivityName=".Games" />
-        <activity
             android:name=".Skocko"
             android:exported="false"
             android:parentActivityName=".Games" />
         <activity
-            android:name=".Asosijacije"
-            android:exported="false"
-            android:parentActivityName=".Games" />
-        <activity
             android:name=".Spojnice"
-            android:exported="false"
-            android:parentActivityName=".Games" />
-        <activity
-            android:name=".KoZnaZna"
             android:exported="false"
             android:parentActivityName=".Games" />
         <activity
