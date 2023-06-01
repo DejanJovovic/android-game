@@ -304,6 +304,9 @@ public class AsosijacijeActivity extends AppCompatActivity {
             konacno.setBackgroundResource(R.drawable.round_green_reveal);
 
             Toast.makeText(getApplicationContext(), "Osvojiili ste ", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(AsosijacijeActivity.this, AsosijacijeResults.class);
+            startActivity(intent);
+
 
         }
         else {

@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".QuizResults">
+    tools:context=".AsosijacijeResults">
 
     <ImageView
-        android:id="@+id/congratulationsIcon"
+        android:id="@+id/congratulationsIconAsosijacije"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -20,21 +20,21 @@
     </ImageView>
 
     <TextView
-        android:id="@+id/successTextView"
+        android:id="@+id/successTextViewAsosijacije"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:gravity="center"
-        android:layout_below="@+id/congratulationsIcon"
+        android:layout_below="@+id/congratulationsIconAsosijacije"
         android:text="You have successfully completed a quiz"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         android:textSize="16sp">
-        
+
     </TextView>
 
     <LinearLayout
-        android:layout_below="@id/successTextView"
+        android:layout_below="@id/successTextViewAsosijacije"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,28 +42,7 @@
         android:layout_centerHorizontal="true">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/correctAnswers"
-            android:textColor="#00C853"
-            android:textStyle="bold"
-            android:text="Correct Answer: 0">
-
-        </TextView>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/incorrectAnswers"
-            android:layout_marginTop="5dp"
-            android:textColor="#DD2C00"
-            android:textStyle="bold"
-            android:text="Wrong Answers: 0">
-
-        </TextView>
-        
-        <TextView
-            android:id="@+id/totalScore"
+            android:id="@+id/totalScoreAsosijacije"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
@@ -76,16 +55,15 @@
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/startNewQuizBtn"
+        android:id="@+id/startNewQuizBtnAsosijacije"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="Start New Quiz"
+        android:text="Start Korak Po Korak "
         android:textColor="#FFFFFF"
         android:background="@drawable/round_green"
         android:layout_alignParentBottom="true"
         android:layout_margin="20dp">
 
     </androidx.appcompat.widget.AppCompatButton>
-
 
 </RelativeLayout>

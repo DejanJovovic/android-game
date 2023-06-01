@@ -4,19 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-public class QuizResults extends AppCompatActivity {
+public class KoZnaZnaResults extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quiz_results);
+        setContentView(R.layout.activity_ko_zna_zna_results);
 
         final AppCompatButton startNewBtn = findViewById(R.id.startNewQuizBtn);
         final TextView correctAnswer = findViewById(R.id.correctAnswers);
@@ -37,7 +34,7 @@ public class QuizResults extends AppCompatActivity {
         startNewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(QuizResults.this, Games.class));
+                startActivity(new Intent(KoZnaZnaResults.this, AsosijacijeActivity.class));
                 finish();
             }
         });
@@ -46,7 +43,7 @@ public class QuizResults extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(QuizResults.this, Games.class));
+        startActivity(new Intent(KoZnaZnaResults.this, Games.class));
         finish();
     }
 }

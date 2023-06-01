@@ -182,6 +182,9 @@ public class KorakPoKorakActivity extends AppCompatActivity {
 
             Toast.makeText(getApplicationContext(), "Osvojiili ste " + score + "poena", Toast.LENGTH_LONG).show();
 
+            Intent intent = new Intent(KorakPoKorakActivity.this, KorakPoKorakResults.class);
+            startActivity(intent);
+
         }
         else {
             Toast.makeText(getApplicationContext(), "Netacan odgovor", Toast.LENGTH_SHORT).show();

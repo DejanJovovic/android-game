@@ -267,7 +267,7 @@ public class KoZnaZnaActivity extends AppCompatActivity {
 
         }
         else {
-            Intent intent = new Intent(KoZnaZnaActivity.this, QuizResults.class);
+            Intent intent = new Intent(KoZnaZnaActivity.this, KoZnaZnaResults.class);
             intent.putExtra("correct", getCorrectAnswers());
             intent.putExtra("incorrect", getInCorrectAnswers());
             intent.putExtra("score", getTotalScore());
@@ -293,7 +293,7 @@ public class KoZnaZnaActivity extends AppCompatActivity {
 
                     Toast.makeText(KoZnaZnaActivity.this, "Time over!", Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(KoZnaZnaActivity.this, QuizResults.class);
+                    Intent intent = new Intent(KoZnaZnaActivity.this, KoZnaZnaResults.class);
                     intent.putExtra("correct", getCorrectAnswers());
                     intent.putExtra("incorrect", getInCorrectAnswers());
                     intent.putExtra("score", getTotalScore());
