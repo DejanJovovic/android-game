@@ -268,6 +268,7 @@
         android:layout_marginTop="0dp">
 
 
+
         <LinearLayout
             android:id="@+id/layoutC"
             android:layout_width="200dp"
@@ -427,10 +428,25 @@
 
             </androidx.appcompat.widget.AppCompatButton>
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSubmitAnswerA"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="0dp"
+                android:text="Submit"
+                android:onClick="updateAsosijacije"
+                android:textSize="12sp"
+                android:background="@drawable/round_green"
+                android:textColor="@color/white">
+
+            </androidx.appcompat.widget.AppCompatButton>
+
 
         </LinearLayout>
-    </LinearLayout>
 
+    </LinearLayout>
 
 
 </LinearLayout>

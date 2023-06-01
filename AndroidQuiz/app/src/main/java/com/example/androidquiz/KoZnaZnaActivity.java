@@ -45,6 +45,7 @@ public class KoZnaZnaActivity extends AppCompatActivity {
 
     private String selectedOptionByUser = "";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -269,6 +270,7 @@ public class KoZnaZnaActivity extends AppCompatActivity {
             Intent intent = new Intent(KoZnaZnaActivity.this, QuizResults.class);
             intent.putExtra("correct", getCorrectAnswers());
             intent.putExtra("incorrect", getInCorrectAnswers());
+            intent.putExtra("score", getTotalScore());
             startActivity(intent);
 
             finish();
@@ -294,6 +296,7 @@ public class KoZnaZnaActivity extends AppCompatActivity {
                     Intent intent = new Intent(KoZnaZnaActivity.this, QuizResults.class);
                     intent.putExtra("correct", getCorrectAnswers());
                     intent.putExtra("incorrect", getInCorrectAnswers());
+                    intent.putExtra("score", getTotalScore());
                     startActivity(intent);
 
                     finish();
@@ -353,6 +356,24 @@ public class KoZnaZnaActivity extends AppCompatActivity {
             }
         }
         return correctAnswers;
+    }
+
+    private int getTotalScore(){
+        int score = 0;
+
+        for(int i = 0; i< koZnaZnaLists.size(); i++){
+            final String getUserSelectedAnswer = koZnaZnaLists.get(i).getUserSelectedAnswer();
+            final String getAnswer = koZnaZnaLists.get(i).getAnswer();
+
+            if(getUserSelectedAnswer.equals(getAnswer)) {
+                score += 10;
+            } else {
+                score = score -5;
+            }
+        }
+        Toast.makeText(getApplicationContext(), "Osvojili ste " + score + "poena", Toast.LENGTH_LONG).show();
+        return score;
+
     }
 
     @Override

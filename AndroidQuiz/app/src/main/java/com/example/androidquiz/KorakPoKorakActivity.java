@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -39,6 +40,8 @@ public class KorakPoKorakActivity extends AppCompatActivity {
     private int seconds = 0;
 
 
+    int score = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,8 @@ public class KorakPoKorakActivity extends AppCompatActivity {
 
         selectedGame.setText(getSelectedGameName);
 
+
+
         hint1 = findViewById(R.id.hint1);
         hint2 = findViewById(R.id.hint2);
         hint3 = findViewById(R.id.hint3);
@@ -63,6 +68,12 @@ public class KorakPoKorakActivity extends AppCompatActivity {
         konacno1 = findViewById(R.id.konacno1);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://androidquiz-ffbad-default-rtdb.firebaseio.com/");
+
+        ProgressDialog progressDialog = new ProgressDialog(KorakPoKorakActivity.this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -85,6 +96,12 @@ public class KorakPoKorakActivity extends AppCompatActivity {
                     korakPoKorakHint.add(korakPoKorakHints);
 
                     startTimer(timerKorakPoKorak);
+
+                    progressDialog.hide();
+
+
+
+
                 }
             }
 
@@ -156,6 +173,57 @@ public class KorakPoKorakActivity extends AppCompatActivity {
 
     }
 
+   public void updateKonacno(View view) {
+        final String getKonacno1 = korakPoKorakHint.get(0).getKonacno1();
+        if(konacno1.getText().toString().equals(getKonacno1)) {
+            konacno1.setText(korakPoKorakHint.get(0).getKonacno1());
+            konacno1.setBackgroundResource(R.drawable.round_green_reveal);
+
+
+            Toast.makeText(getApplicationContext(), "Osvojiili ste " + score + "poena", Toast.LENGTH_LONG).show();
+
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "Netacan odgovor", Toast.LENGTH_SHORT).show();
+        }
+
+   }
+
+//   private int getPoints() {
+//        int column = 0;
+//           final String getHint1 = korakPoKorakHint.get(0).getHint1();
+//           final String getHint2 = korakPoKorakHint.get(0).getHint2();
+//           final String getHint3 = korakPoKorakHint.get(0).getHint3();
+//           final String getHint4 = korakPoKorakHint.get(0).getHint4();
+//           final String getHint5 = korakPoKorakHint.get(0).getHint5();
+//           final String getHint6 = korakPoKorakHint.get(0).getHint6();
+//           final String getHint7 = korakPoKorakHint.get(0).getHint7();
+//
+//           if(column == Integer.parseInt(getHint1)) {
+//               score = 30;
+//           }
+//           if(column == Integer.parseInt(getHint2)) {
+//               score = 25;
+//           }
+//           if(column == Integer.parseInt(getHint3)) {
+//               score = 20;
+//           }
+//           if(column == Integer.parseInt(getHint4)) {
+//               score = 15;
+//           }
+//           if(column == Integer.parseInt(getHint5)) {
+//               score = 10;
+//           }
+//           if(column == Integer.parseInt(getHint6)) {
+//               score = 5;
+//           }
+//           if(column == Integer.parseInt(getHint7)) {
+//               score = 5;
+//           }
+//       Toast.makeText(getApplicationContext(), "Osvojili ste " + score + "poena", Toast.LENGTH_LONG).show();
+//       return score;
+//       }
+
 
 
     private void startTimer(TextView timerTextView){
@@ -174,7 +242,6 @@ public class KorakPoKorakActivity extends AppCompatActivity {
                     quizTimer.cancel();
 
                     Toast.makeText(KorakPoKorakActivity.this, "Time over!", Toast.LENGTH_SHORT).show();
-
                 }
                 else{
                     seconds--;

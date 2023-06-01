@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -86,6 +87,13 @@ public class AsosijacijeActivity extends AppCompatActivity {
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://androidquiz-ffbad-default-rtdb.firebaseio.com/");
 
+        ProgressDialog progressDialog = new ProgressDialog(AsosijacijeActivity.this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+
+
+
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -109,11 +117,11 @@ public class AsosijacijeActivity extends AppCompatActivity {
                     final String getBtnD2 = dataSnapshot.child("D2").getValue(String.class);
                     final String getBtnD3 = dataSnapshot.child("D3").getValue(String.class);
                     final String getBtnD4 = dataSnapshot.child("D4").getValue(String.class);
-                    final String getKonacnoA = dataSnapshot.child("A").getValue(String.class);
-                    final String getKonacnoB = dataSnapshot.child("B").getValue(String.class);
-                    final String getKonacnoC = dataSnapshot.child("C").getValue(String.class);
-                    final String getKonacnoD = dataSnapshot.child("D").getValue(String.class);
-                    final String getKonacno = dataSnapshot.child("Konacno").getValue(String.class);
+                    final String getKonacnoA = dataSnapshot.child("konacnoA").getValue(String.class);
+                    final String getKonacnoB = dataSnapshot.child("konacnoB").getValue(String.class);
+                    final String getKonacnoC = dataSnapshot.child("konacnoC").getValue(String.class);
+                    final String getKonacnoD = dataSnapshot.child("konacnoD").getValue(String.class);
+                    final String getKonacno = dataSnapshot.child("konacno").getValue(String.class);
 
                     AsosijacijeFields asosijacijeFields = new AsosijacijeFields(getBtnA1, getBtnA2, getBtnA3, getBtnA4, getBtnB1,
                             getBtnB2, getBtnB3, getBtnB4, getBtnC1, getBtnC2, getBtnC3, getBtnC4, getBtnD1, getBtnD2, getBtnD3,
@@ -121,6 +129,8 @@ public class AsosijacijeActivity extends AppCompatActivity {
                     asosijacijeField.add(asosijacijeFields);
 
                     startTimer(timerAsosijacije);
+
+                    progressDialog.hide();
                 }
             }
 
@@ -256,6 +266,52 @@ public class AsosijacijeActivity extends AppCompatActivity {
         });
 
     }
+
+    public void updateAsosijacije(View view) {
+        final String getKonacnoA = asosijacijeField.get(0).getKonacnoA();
+        final String getKonacnoB = asosijacijeField.get(0).getKonacnoB();
+        final String getKonacnoC = asosijacijeField.get(0).getKonacnoC();
+        final String getKonacnoD = asosijacijeField.get(0).getKonacnoD();
+        final String getKonacno = asosijacijeField.get(0).getKonacno();
+
+        if(konacnoA.getText().toString().equals(getKonacnoA)) {
+            konacnoA.setText(asosijacijeField.get(0).getKonacnoA());
+            konacnoA.setBackgroundResource(R.drawable.round_green_reveal);
+
+            Toast.makeText(getApplicationContext(), "Osvojiili ste ", Toast.LENGTH_LONG).show();
+        }
+        if (konacnoB.getText().toString().equals(getKonacnoB)) {
+            konacnoB.setText(asosijacijeField.get(0).getKonacnoB());
+            konacnoB.setBackgroundResource(R.drawable.round_green_reveal);
+
+            Toast.makeText(getApplicationContext(), "Osvojiili ste ", Toast.LENGTH_LONG).show();
+        }
+        if(konacnoC.getText().toString().equals(getKonacnoC)) {
+            konacnoC.setText(asosijacijeField.get(0).getKonacnoC());
+            konacnoC.setBackgroundResource(R.drawable.round_green_reveal);
+
+            Toast.makeText(getApplicationContext(), "Osvojiili ste ", Toast.LENGTH_LONG).show();
+        }
+        if (konacnoD.getText().toString().equals(getKonacnoD)) {
+            konacnoD.setText(asosijacijeField.get(0).getKonacnoD());
+            konacnoD.setBackgroundResource(R.drawable.round_green_reveal);
+
+            Toast.makeText(getApplicationContext(), "Osvojiili ste ", Toast.LENGTH_LONG).show();
+
+        }
+        if(konacno.getText().toString().equals(getKonacno)) {
+            konacno.setText(asosijacijeField.get(0).getKonacno());
+            konacno.setBackgroundResource(R.drawable.round_green_reveal);
+
+            Toast.makeText(getApplicationContext(), "Osvojiili ste ", Toast.LENGTH_LONG).show();
+
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "Netacan odgovor", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
 
     private void startTimer(TextView timerTextView){
         quizTimer = new Timer();

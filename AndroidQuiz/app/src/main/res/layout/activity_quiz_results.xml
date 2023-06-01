@@ -61,6 +61,17 @@
             android:text="Wrong Answers: 0">
 
         </TextView>
+        
+        <TextView
+            android:id="@+id/totalScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:textColor="@color/white"
+            android:textSize="16sp">
+
+        </TextView>
+
 
     </LinearLayout>
 

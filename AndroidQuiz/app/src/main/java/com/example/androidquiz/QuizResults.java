@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -20,13 +21,17 @@ public class QuizResults extends AppCompatActivity {
         final AppCompatButton startNewBtn = findViewById(R.id.startNewQuizBtn);
         final TextView correctAnswer = findViewById(R.id.correctAnswers);
         final TextView incorrectAnswer = findViewById(R.id.incorrectAnswers);
+        final TextView totalScore = findViewById(R.id.totalScore);
+
 
         final int getCorrectAnswers = getIntent().getIntExtra("correct",0);
         final int getIncorrectAnswers = getIntent().getIntExtra("incorrect", 0);
+        final int getTotalScore = getIntent().getIntExtra("totalScore", 0);
 
 
         correctAnswer.setText(String.valueOf(getCorrectAnswers));
         incorrectAnswer.setText(String.valueOf(getIncorrectAnswers));
+        totalScore.setText(String.valueOf(getTotalScore));
 
 
         startNewBtn.setOnClickListener(new View.OnClickListener() {
