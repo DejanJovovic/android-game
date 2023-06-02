@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 public class KoZnaZnaResults extends AppCompatActivity {
 
+    private String selectedGameName = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +35,11 @@ public class KoZnaZnaResults extends AppCompatActivity {
         startNewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(KoZnaZnaResults.this, AsosijacijeActivity.class));
-                finish();
+                selectedGameName = "Asosijacije";
+
+                Intent intent = new Intent(KoZnaZnaResults.this, AsosijacijeActivity.class);
+                intent.putExtra("selectedGame", selectedGameName);
+                startActivity(intent);
             }
         });
     }

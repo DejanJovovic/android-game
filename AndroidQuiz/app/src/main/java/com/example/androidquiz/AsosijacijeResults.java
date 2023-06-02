@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+
 public class AsosijacijeResults extends AppCompatActivity {
 
+    private String selectedGameName = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,8 +28,11 @@ public class AsosijacijeResults extends AppCompatActivity {
         startNewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AsosijacijeResults.this, KorakPoKorakActivity.class));
-                finish();
+
+                selectedGameName = "Korak po korak";
+                Intent intent = new Intent(AsosijacijeResults.this, KorakPoKorakActivity.class);
+                intent.putExtra("selectedGame", selectedGameName);
+                startActivity(intent);
             }
         });
 
