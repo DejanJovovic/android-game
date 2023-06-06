@@ -2,6 +2,7 @@ package com.example.androidquiz;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -226,6 +227,8 @@ public class Skocko extends AppCompatActivity {
                     break;
             }
         }
+        Button nextGame = findViewById(R.id.nextGame);
+        nextGame.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -247,5 +250,11 @@ public class Skocko extends AppCompatActivity {
         initSlots();
         initButtons();
         generateSolution();
+        Button nextGame = findViewById(R.id.nextGame);
+        nextGame.setOnClickListener(view -> {
+
+            Intent intent = new Intent(Skocko.this, MojBroj.class);
+            startActivity(intent);
+        });
     }
 }

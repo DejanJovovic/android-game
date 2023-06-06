@@ -8,6 +8,7 @@
     tools:context=".MojBroj">
 
 
+
     <TextView
         android:id="@+id/titleId"
         android:layout_width="wrap_content"
@@ -84,7 +85,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Button" />
+                android:enabled="false"
+                android:text="" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -96,7 +98,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Button" />
+                android:enabled="false"
+                android:text="" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -108,7 +111,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Button" />
+                android:enabled="false"
+                android:text="" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -120,7 +124,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Button" />
+                android:enabled="false"
+                android:text="" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -139,7 +144,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Button" />
+                android:enabled="false"
+                android:text="" />
         </LinearLayout>
 
         <LinearLayout
@@ -152,7 +158,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Button" />
+                android:enabled="false"
+                android:text="" />
         </LinearLayout>
 
         <LinearLayout
@@ -177,8 +184,7 @@
                 android:id="@+id/userInput"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="TextView" />
+                android:layout_weight="1" />
 
         </LinearLayout>
 
@@ -192,6 +198,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:text="+" />
 
             <Button
@@ -199,6 +206,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:text="-" />
 
             <Button
@@ -206,6 +214,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:text="*" />
 
             <Button
@@ -213,6 +222,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:text="/" />
 
             <Button
@@ -220,6 +230,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:text="(" />
 
             <Button
@@ -227,6 +238,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:text=")" />
 
             <Button
@@ -234,6 +246,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:text="&lt;--" />
         </LinearLayout>
 
@@ -251,6 +264,17 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/timeLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="205dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="206dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
