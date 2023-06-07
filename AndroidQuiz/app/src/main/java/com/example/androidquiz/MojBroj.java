@@ -2,6 +2,7 @@ package com.example.androidquiz;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.widget.Button;
@@ -259,5 +260,11 @@ public class MojBroj extends AppCompatActivity {
             genNumbers();
             timer.cancel();
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(MojBroj.this, Games.class));
+        finish();
     }
 }

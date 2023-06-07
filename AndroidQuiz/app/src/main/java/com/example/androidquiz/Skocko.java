@@ -253,8 +253,14 @@ public class Skocko extends AppCompatActivity {
         Button nextGame = findViewById(R.id.nextGame);
         nextGame.setOnClickListener(view -> {
 
-            Intent intent = new Intent(Skocko.this, MojBroj.class);
+            Intent intent = new Intent(Skocko.this, KorakPoKorakActivity.class);
             startActivity(intent);
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(Skocko.this, Games.class));
+        finish();
     }
 }
