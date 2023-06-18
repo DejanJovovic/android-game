@@ -9,65 +9,65 @@
 
 
     <Button
-        android:id="@+id/button15"
+        android:id="@+id/desno0"
         android:layout_width="138dp"
         android:layout_height="55dp"
-        android:layout_marginStart="236dp"
+        android:layout_marginEnd="37dp"
         android:layout_marginBottom="536dp"
         android:text="5"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/button16"
+        android:id="@+id/desno3"
         android:layout_width="138dp"
         android:layout_height="55dp"
-        android:layout_marginStart="236dp"
+        android:layout_marginEnd="37dp"
         android:layout_marginBottom="264dp"
         android:text="2"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button13"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/levo2"
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/button18"
+        android:id="@+id/desno1"
         android:layout_width="138dp"
         android:layout_height="55dp"
-        android:layout_marginStart="236dp"
+        android:layout_marginEnd="37dp"
         android:layout_marginBottom="440dp"
         android:text="4"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/levo0"
         app:layout_constraintVertical_bias="0.853" />
 
     <Button
-        android:id="@+id/button19"
+        android:id="@+id/desno2"
         android:layout_width="138dp"
         android:layout_height="55dp"
-        android:layout_marginStart="236dp"
+        android:layout_marginEnd="37dp"
         android:layout_marginBottom="352dp"
         android:text="3"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/levo1"
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/button17"
+        android:id="@+id/desno4"
         android:layout_width="138dp"
         android:layout_height="55dp"
-        android:layout_marginStart="236dp"
+        android:layout_marginEnd="37dp"
         android:layout_marginBottom="176dp"
         android:text="1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button11"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/levo3"
         app:layout_constraintVertical_bias="0.939" />
 
     <Button
-        android:id="@+id/button14"
+        android:id="@+id/levo4"
         android:layout_width="138dp"
         android:layout_height="55dp"
         android:layout_marginStart="20dp"
@@ -75,11 +75,11 @@
         android:text="5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button11"
+        app:layout_constraintTop_toBottomOf="@+id/levo3"
         app:layout_constraintVertical_bias="0.939" />
 
     <Button
-        android:id="@+id/button13"
+        android:id="@+id/levo2"
         android:layout_width="138dp"
         android:layout_height="55dp"
         android:layout_marginStart="20dp"
@@ -87,11 +87,11 @@
         android:text="3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button12"
+        app:layout_constraintTop_toBottomOf="@+id/levo1"
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/button11"
+        android:id="@+id/levo3"
         android:layout_width="138dp"
         android:layout_height="55dp"
         android:layout_marginStart="20dp"
@@ -99,11 +99,11 @@
         android:text="4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button13"
+        app:layout_constraintTop_toBottomOf="@+id/levo2"
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/button12"
+        android:id="@+id/levo1"
         android:layout_width="138dp"
         android:layout_height="55dp"
         android:layout_marginStart="20dp"
@@ -111,7 +111,7 @@
         android:text="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button9"
+        app:layout_constraintTop_toBottomOf="@+id/levo0"
         app:layout_constraintVertical_bias="0.853" />
 
     <TextView
@@ -150,7 +150,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button9"
+        android:id="@+id/levo0"
         android:layout_width="138dp"
         android:layout_height="55dp"
         android:layout_marginStart="20dp"
@@ -158,5 +158,30 @@
         android:text="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/nextGame1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="161dp"
+        android:layout_marginEnd="161dp"
+        android:layout_marginBottom="84dp"
+        android:text="Sledeca igra"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/timer1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="181dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="181dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleId" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

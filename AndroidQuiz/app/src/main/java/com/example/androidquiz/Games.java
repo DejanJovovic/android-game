@@ -24,6 +24,7 @@ public class Games extends AppCompatActivity {
         final LinearLayout asosijacije = findViewById(R.id.asosijacijeLayout);
         LinearLayout skocko = findViewById(R.id.skockoLayout);
         LinearLayout mojBroj = findViewById(R.id.mojBrojLayout);
+        LinearLayout spojnice = findViewById(R.id.spojniceLayout);
 
         final Button startBtn = findViewById(R.id.startQuizBtn);
 
@@ -84,6 +85,11 @@ public class Games extends AppCompatActivity {
 
         mojBroj.setOnClickListener(v -> {
             Intent intent = new Intent(Games.this, MojBroj.class);
+            startActivity(intent);
+        });
+
+        spojnice.setOnClickListener(v -> {
+            Intent intent = new Intent(Games.this, Spojnice.class);
             startActivity(intent);
         });
 

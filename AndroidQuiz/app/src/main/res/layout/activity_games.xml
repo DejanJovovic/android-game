@@ -75,9 +75,8 @@
             </TextView>
         </LinearLayout>
 
-
         <LinearLayout
-            android:id="@+id/korakPoKorakLayout"
+            android:id="@+id/spojniceLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -90,7 +89,7 @@
             <ImageView
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:src="@drawable/steps">
+                android:src="@drawable/spojnice">
 
             </ImageView>
 
@@ -98,13 +97,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Korak po korak"
+                android:text="Spojnice"
                 android:textColor="@color/blue"
                 android:textSize="18sp"
                 android:textStyle="bold">
 
             </TextView>
         </LinearLayout>
+
+
+
 
     </LinearLayout>
 
@@ -194,7 +196,7 @@
         android:weightSum="2">
 
         <LinearLayout
-            android:id="@+id/spojniceLayout"
+            android:id="@+id/korakPoKorakLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -207,7 +209,7 @@
             <ImageView
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:src="@drawable/spojnice">
+                android:src="@drawable/steps">
 
             </ImageView>
 
@@ -215,7 +217,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Spojnice"
+                android:text="Korak po korak"
                 android:textColor="@color/blue"
                 android:textSize="18sp"
                 android:textStyle="bold">
