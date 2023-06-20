@@ -1,6 +1,6 @@
 package com.example.androidquiz.models;
 
-public class SpojniceItemModel {
+public class SpojniceAnswerModel {
     String left;
     String right;
 
@@ -20,8 +20,11 @@ public class SpojniceItemModel {
         return right;
     }
 
-    public SpojniceItemModel(String left, String right) {
+    public SpojniceAnswerModel(String left, String right) {
         this.left = left;
         this.right = right;
+    }
+
+    public SpojniceAnswerModel() {
     }
 }

@@ -1,9 +1,9 @@
 package com.example.androidquiz;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -11,13 +11,18 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.androidquiz.models.SpojniceItemModel;
+import com.example.androidquiz.models.SpojniceAnswerModel;
 import com.example.androidquiz.models.SpojniceModel;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class Spojnice extends AppCompatActivity {
     SpojniceModel model = new SpojniceModel();
@@ -45,6 +50,7 @@ public class Spojnice extends AppCompatActivity {
     }
 
     private void init() {
+        Button theme = findViewById(R.id.tema);
         Button left0 = findViewById(R.id.levo0);
         Button left1 = findViewById(R.id.levo1);
         Button left2 = findViewById(R.id.levo2);
@@ -55,6 +61,7 @@ public class Spojnice extends AppCompatActivity {
         Button right2 = findViewById(R.id.desno2);
         Button right3 = findViewById(R.id.desno3);
         Button right4 = findViewById(R.id.desno4);
+        theme.setText(model.getTitle());
         leftBtns.add(left0);
         leftBtns.add(left1);
         leftBtns.add(left2);
@@ -104,7 +111,7 @@ public class Spojnice extends AppCompatActivity {
     private boolean checkIsCorrect(int left, int right) {
         String leftText = leftBtns.get(left).getText().toString();
         String rightText = rightBtns.get(right).getText().toString();
-        for (SpojniceItemModel item : model.getAnswers()) {
+        for (SpojniceAnswerModel item : model.getAnswers()) {
             if (item.getLeft().equals(leftText)) {
                 if (item.getRight().equals(rightText)) {
                     correctCounter++;
@@ -127,22 +134,36 @@ public class Spojnice extends AppCompatActivity {
     }
 
     private void loadAnswers() {
-        model.getAnswers().add(new SpojniceItemModel("Nenad", "Dinic"));
-        model.getAnswers().add(new SpojniceItemModel("Nenad1", "Dinic1"));
-        model.getAnswers().add(new SpojniceItemModel("Nenad2", "Dinic2"));
-        model.getAnswers().add(new SpojniceItemModel("Nenad3", "Dinic3"));
-        model.getAnswers().add(new SpojniceItemModel("Nenad4", "Dinic4"));
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://androidquiz-ffbad-default-rtdb.firebaseio.com/");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<SpojniceModel> spojnice = new ArrayList<>();
+                for (DataSnapshot dataSnapshot : snapshot.child("spojnice").getChildren()) {
+                    SpojniceModel spojnica = dataSnapshot.getValue(SpojniceModel.class);
+                    spojnice.add(spojnica);
+                }
+                int randomIndex = new Random().nextInt(spojnice.size());
+                model = spojnice.get(randomIndex);
 
-        left = new ArrayList<>();
-        right = new ArrayList<>();
-        for (SpojniceItemModel answer : model.getAnswers()) {
-            left.add(answer.getLeft());
-            right.add(answer.getRight());
-        }
+                left = new ArrayList<>();
+                right = new ArrayList<>();
+                for (SpojniceAnswerModel answer : model.getAnswers()) {
+                    left.add(answer.getLeft());
+                    right.add(answer.getRight());
+                }
 
-        Collections.shuffle(left);
-        Collections.shuffle(right);
-        init();
+                Collections.shuffle(left);
+                Collections.shuffle(right);
+                init();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     @Override
