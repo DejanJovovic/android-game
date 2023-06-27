@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 public class KorakPoKorakResults extends AppCompatActivity {
+    private String selectedGameName = "";
 
     private String selectedGameName = "";
     @Override

@@ -35,9 +35,9 @@ public class KoZnaZnaResults extends AppCompatActivity {
         startNewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectedGameName = "Asosijacije";
+                selectedGameName = "Spojnice";
 
-                Intent intent = new Intent(KoZnaZnaResults.this, AsosijacijeActivity.class);
+                Intent intent = new Intent(KoZnaZnaResults.this, Spojnice.class);
                 intent.putExtra("selectedGame", selectedGameName);
                 startActivity(intent);
             }

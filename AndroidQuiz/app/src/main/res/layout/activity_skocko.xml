@@ -5,4 +5,485 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".Skocko"/>
+    android:visibility="visible"
+    tools:context=".Skocko">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <ImageButton
+            android:id="@+id/tref"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/tref" />
+
+        <ImageButton
+            android:id="@+id/herc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/herc" />
+
+        <ImageButton
+            android:id="@+id/karo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/karo" />
+
+        <ImageButton
+            android:id="@+id/pik"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/pik" />
+
+        <ImageButton
+            android:id="@+id/cd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/cd" />
+
+        <ImageButton
+            android:id="@+id/zvezda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/zvezda" />
+
+        <ImageButton
+            android:id="@+id/delete"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:src="@drawable/delete" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="200dp"
+        android:layout_marginBottom="100dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/slot00"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <ImageView
+                android:id="@+id/slot01"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <ImageView
+                android:id="@+id/slot02"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <ImageView
+                android:id="@+id/slot03"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <TextView
+                android:id="@+id/result0"
+                android:layout_width="150dp"
+                android:layout_height="45dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/slot10"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <ImageView
+                android:id="@+id/slot11"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <ImageView
+                android:id="@+id/slot12"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <ImageView
+                android:id="@+id/slot13"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <TextView
+                android:id="@+id/result1"
+                android:layout_width="150dp"
+                android:layout_height="45dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/slot20"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <ImageView
+                android:id="@+id/slot21"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <ImageView
+                android:id="@+id/slot22"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <ImageView
+                android:id="@+id/slot23"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <TextView
+                android:id="@+id/result2"
+                android:layout_width="150dp"
+                android:layout_height="45dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/slot30"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <ImageView
+                android:id="@+id/slot31"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <ImageView
+                android:id="@+id/slot32"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <ImageView
+                android:id="@+id/slot33"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <TextView
+                android:id="@+id/result3"
+                android:layout_width="150dp"
+                android:layout_height="45dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/slot40"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <ImageView
+                android:id="@+id/slot41"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <ImageView
+                android:id="@+id/slot42"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <ImageView
+                android:id="@+id/slot43"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <TextView
+                android:id="@+id/result4"
+                android:layout_width="150dp"
+                android:layout_height="45dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/slot50"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <ImageView
+                android:id="@+id/slot51"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <ImageView
+                android:id="@+id/slot52"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <ImageView
+                android:id="@+id/slot53"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <TextView
+                android:id="@+id/result5"
+                android:layout_width="150dp"
+                android:layout_height="45dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp">
+
+        </Space>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/slot60"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <ImageView
+                android:id="@+id/slot61"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <ImageView
+                android:id="@+id/slot62"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <ImageView
+                android:id="@+id/slot63"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <TextView
+                android:id="@+id/result6"
+                android:layout_width="150dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:text="TextView" />
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp"></Space>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/slot70"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <ImageView
+                android:id="@+id/slot71"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <ImageView
+                android:id="@+id/slot72"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <ImageView
+                android:id="@+id/slot73"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/frame" />
+
+            <TextView
+                android:id="@+id/result7"
+                android:layout_width="150dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:text="" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/nextGame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Sledeca igra"
+                android:visibility="gone" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/titleId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Skocko"
+        android:textColor="#F8F5F5"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonPoeni1"
+        android:layout_width="58dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="136dp"
+        android:text="30"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonPoeni2"
+        android:layout_width="58dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="136dp"
+        android:layout_marginEnd="104dp"
+        android:backgroundTint="@color/red"
+        android:text="90"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="177dp"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleId" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

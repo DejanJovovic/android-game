@@ -7,15 +7,15 @@
     android:orientation="vertical"
     tools:context=".Games"
     android:background="@drawable/background">
-    
+
     <ImageView
         android:id="@+id/quizIcon"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:adjustViewBounds="true"
+        android:layout_height="53dp"
         android:layout_marginStart="80dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="80dp"
+        android:adjustViewBounds="true"
         android:src="@drawable/quiz">
 
     </ImageView>
@@ -75,22 +75,21 @@
             </TextView>
         </LinearLayout>
 
-
         <LinearLayout
-            android:id="@+id/korakPoKorakLayout"
+            android:id="@+id/spojniceLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_gravity="center"
             android:padding="20dp"
-            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:orientation="vertical"
             android:background="@drawable/round_back_white10">
 
             <ImageView
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:src="@drawable/steps">
+                android:src="@drawable/spojnice">
 
             </ImageView>
 
@@ -98,13 +97,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Korak po korak"
+                android:text="Spojnice"
                 android:textColor="@color/blue"
                 android:textSize="18sp"
                 android:textStyle="bold">
 
             </TextView>
         </LinearLayout>
+
+
+
 
     </LinearLayout>
 
@@ -150,6 +152,109 @@
             </TextView>
         </LinearLayout>
 
+
+        <LinearLayout
+                android:id="@+id/skockoLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_back_white10"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/star">
+
+                </ImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Skocko"
+                    android:textColor="@color/blue"
+                    android:textSize="18sp"
+                    android:textStyle="bold">
+
+                </TextView>
+            </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout2"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:id="@+id/korakPoKorakLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:padding="20dp"
+            android:layout_marginEnd="5dp"
+            android:orientation="vertical"
+            android:background="@drawable/round_back_white10">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/steps">
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Korak po korak"
+                android:textColor="@color/blue"
+                android:textSize="18sp"
+                android:textStyle="bold">
+
+            </TextView>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/mojBrojLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/round_back_white10"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/broj">
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Moj broj"
+                android:textColor="@color/blue"
+                android:textSize="18sp"
+                android:textStyle="bold">
+
+            </TextView>
+        </LinearLayout>
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -157,7 +262,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Start Quiz"
-        android:layout_below="@+id/layout2"
+        android:layout_below="@+id/layout3"
         android:layout_marginTop="50dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
@@ -167,4 +272,5 @@
         android:textSize="16sp">
 
     </androidx.appcompat.widget.AppCompatButton>
+
 </RelativeLayout>
