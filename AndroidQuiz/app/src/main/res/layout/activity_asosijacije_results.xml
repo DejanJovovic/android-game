@@ -58,7 +58,7 @@
         android:id="@+id/startNewQuizBtnAsosijacije"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="Start Korak Po Korak "
+        android:text="Start Asosijacije "
         android:textColor="#FFFFFF"
         android:background="@drawable/round_green"
         android:layout_alignParentBottom="true"

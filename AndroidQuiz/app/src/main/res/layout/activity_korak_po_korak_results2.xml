@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".KorakPoKorakResults">
+    tools:context=".KorakPoKorakResults2">
 
     <ImageView
-        android:id="@+id/congratulationsIconKorakPoKorak"
+        android:id="@+id/congratulationsIconKorakPoKorak2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -20,12 +20,12 @@
     </ImageView>
 
     <TextView
-        android:id="@+id/successTextViewKorakPoKorak"
+        android:id="@+id/successTextViewKorakPoKorak2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:gravity="center"
-        android:layout_below="@+id/congratulationsIconKorakPoKorak"
+        android:layout_below="@+id/congratulationsIconKorakPoKorak2"
         android:text="You have successfully completed a quiz"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
@@ -35,7 +35,7 @@
 
 
     <LinearLayout
-        android:layout_below="@id/successTextViewKorakPoKorak"
+        android:layout_below="@id/successTextViewKorakPoKorak2"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
         android:layout_centerHorizontal="true">
 
         <TextView
-            android:id="@+id/totalScoreKorakPoKorak"
+            android:id="@+id/totalScoreKorakPoKorak2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
@@ -56,10 +56,10 @@
     </LinearLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/startNewQuizBtnKorakPoKorak"
+        android:id="@+id/startNewQuizBtnKorakPoKorak2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="Start Korak po Korak "
+        android:text="Start Moj Broj"
         android:textColor="#FFFFFF"
         android:background="@drawable/round_green"
         android:layout_alignParentBottom="true"

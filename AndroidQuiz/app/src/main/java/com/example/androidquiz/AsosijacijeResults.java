@@ -29,8 +29,9 @@ public class AsosijacijeResults extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                selectedGameName = "Korak po korak";
-                Intent intent = new Intent(AsosijacijeResults.this, KorakPoKorakActivity.class);
+
+                selectedGameName = "Asosijacije";
+                Intent intent = new Intent(AsosijacijeResults.this, AsosijacijeActivity2.class);
                 intent.putExtra("selectedGame", selectedGameName);
                 startActivity(intent);
             }

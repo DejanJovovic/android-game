@@ -8,16 +8,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-public class KorakPoKorakResults extends AppCompatActivity {
-
+public class KorakPoKorakResults2 extends AppCompatActivity {
     private String selectedGameName = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_korak_po_korak_results);
+        setContentView(R.layout.activity_korak_po_korak_results2);
 
-        final AppCompatButton startNewBtn = findViewById(R.id.startNewQuizBtnKorakPoKorak);
-        final TextView totalScore = findViewById(R.id.totalScoreKorakPoKorak);
+        final AppCompatButton startNewBtn = findViewById(R.id.startNewQuizBtnKorakPoKorak2);
+        final TextView totalScore = findViewById(R.id.totalScoreKorakPoKorak2);
 
         final int getPoints = getIntent().getIntExtra("totalScore", 0);
 
@@ -26,8 +26,8 @@ public class KorakPoKorakResults extends AppCompatActivity {
         startNewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectedGameName = "Korak po Korak";
-                Intent intent = new Intent(KorakPoKorakResults.this, KorakPoKorakActivity2.class);
+                selectedGameName = "MojBroj";
+                Intent intent = new Intent(KorakPoKorakResults2.this, MojBroj.class);
                 intent.putExtra("selectedGame", selectedGameName);
                 startActivity(intent);
             }
@@ -38,7 +38,7 @@ public class KorakPoKorakResults extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(KorakPoKorakResults.this, Games.class));
+        startActivity(new Intent(KorakPoKorakResults2.this, Games.class));
         finish();
     }
 }
