@@ -1,12 +1,35 @@
 package com.example.androidquiz;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SignUpPage extends AppCompatActivity {
+
+
+    EditText inputEmail, inputUsername, inputPassword, inputConfirmPassword;
+    AppCompatButton register;
+
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+
+    ProgressDialog progressDialog;
+
+    FirebaseAuth mAuth;
+    FirebaseUser mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,8 +37,76 @@ public class SignUpPage extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up_page);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("Sign up");
+
+
+        inputEmail = findViewById(R.id.email);
+        inputUsername = findViewById(R.id.username);
+        inputPassword = findViewById(R.id.password);
+        inputConfirmPassword = findViewById(R.id.repassword);
+        register = findViewById(R.id.signupbtn);
+
+        progressDialog = new ProgressDialog(this);
+
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
+
+
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PerformAuth();
+            }
+        });
+
+
     }
 
+    private void PerformAuth(){
+        String email = inputEmail.getText().toString();
+        String username = inputUsername.getText().toString();
+        String password = inputPassword.getText().toString();
+        String confrimPassword = inputConfirmPassword.getText().toString();
+
+
+        if (!email.matches(emailPattern)) {
+            inputEmail.setError("Enter Correct Email");
+
+        } else if(username.isEmpty() || username.length()<3) {
+            inputUsername.setError("Username does not match the requirements");
+        }
+        else if(password.isEmpty()|| password.length()<6) {
+            inputPassword.setError("Password does not match the requirements");
+        }
+        else if(!password.equals(confrimPassword)) {
+            inputConfirmPassword.setError("Password does not match");
+        } else {
+            progressDialog.setMessage("Please wait...");
+            progressDialog.setTitle("Registration");
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
+
+            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isSuccessful()) {
+                        sendUserToHomeActivity();
+                        progressDialog.dismiss();
+                        Toast.makeText(SignUpPage.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                    } else {
+                        progressDialog.dismiss();
+                        Toast.makeText(SignUpPage.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+
+    }
+
+    private void sendUserToHomeActivity() {
+       Intent intent = new Intent(SignUpPage.this, HomePage.class);
+       intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+       startActivity(intent);
+    }
     public void LogIn(View v) {
         Intent intent = new Intent(this, LogInPage.class);
         startActivity(intent);

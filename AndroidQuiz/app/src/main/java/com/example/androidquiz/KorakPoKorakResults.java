@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 public class KorakPoKorakResults extends AppCompatActivity {
     private String selectedGameName = "";
-
-    private String selectedGameName = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
