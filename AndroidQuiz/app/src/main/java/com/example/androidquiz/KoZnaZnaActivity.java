@@ -87,7 +87,7 @@ public class KoZnaZnaActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 //getting quiz time
-                TotalTimeInMins = Integer.parseInt(snapshot.child("timeK").getValue(String.class));
+//                TotalTimeInMins = Integer.parseInt(snapshot.child("time").getValue(String.class));
 
                 //getting all questions from firebase for a specific game
                 for (DataSnapshot dataSnapshot : snapshot.child("Ko_zna_zna").getChildren()) {

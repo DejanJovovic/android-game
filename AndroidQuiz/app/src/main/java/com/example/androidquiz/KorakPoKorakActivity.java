@@ -79,7 +79,7 @@ public class KorakPoKorakActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-//                totalTimeInMins = Integer.parseInt(snapshot.child("timeK").getValue(String.class));
+//                totalTimeInMins = Integer.parseInt(snapshot.child("time").getValue(String.class));
 
                 for (DataSnapshot dataSnapshot : snapshot.child("Korak_po_korak").getChildren()) {
                     final String getHint1 = dataSnapshot.child("1").getValue(String.class);
