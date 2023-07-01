@@ -64,7 +64,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/round_green"
-        android:text="Start Skocko "
+        android:text="Start Asosijacije "
         android:textColor="#FFFFFF">
 
     </androidx.appcompat.widget.AppCompatButton>

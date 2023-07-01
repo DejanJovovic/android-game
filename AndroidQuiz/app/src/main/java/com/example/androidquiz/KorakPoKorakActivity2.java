@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class KorakPoKorakActivity extends AppCompatActivity {
+public class KorakPoKorakActivity2 extends AppCompatActivity {
 
 
     private AppCompatButton hint1, hint2, hint3, hint4, hint5, hint6, hint7;
@@ -46,11 +46,11 @@ public class KorakPoKorakActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_korak_po_korak);
+        setContentView(R.layout.activity_korak_po_korak2);
 
-        final ImageView backBtnKorakPoKorak = findViewById(R.id.backBtnKorakPoKorak);
-        final TextView timerKorakPoKorak = findViewById(R.id.timerKorakPoKorak);
-        final TextView selectedGame = findViewById(R.id.gameNameKorakPoKorak);
+        final ImageView backBtnKorakPoKorak = findViewById(R.id.backBtnKorakPoKorak2);
+        final TextView timerKorakPoKorak = findViewById(R.id.timerKorakPoKorak2);
+        final TextView selectedGame = findViewById(R.id.gameNameKorakPoKorak2);
         final String getSelectedGameName = getIntent().getStringExtra("selectedGame");
 
         selectedGame.setText(getSelectedGameName);
@@ -69,7 +69,7 @@ public class KorakPoKorakActivity extends AppCompatActivity {
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://androidquiz-ffbad-default-rtdb.firebaseio.com/");
 
-        ProgressDialog progressDialog = new ProgressDialog(KorakPoKorakActivity.this);
+        ProgressDialog progressDialog = new ProgressDialog(KorakPoKorakActivity2.this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading...");
         progressDialog.show();
@@ -81,7 +81,7 @@ public class KorakPoKorakActivity extends AppCompatActivity {
 
 //                totalTimeInMins = Integer.parseInt(snapshot.child("time").getValue(String.class));
 
-                for (DataSnapshot dataSnapshot : snapshot.child("Korak_po_korak").getChildren()) {
+                for (DataSnapshot dataSnapshot : snapshot.child("Korak_po_korak2").getChildren()) {
                     final String getHint1 = dataSnapshot.child("1").getValue(String.class);
                     final String getHint2 = dataSnapshot.child("2").getValue(String.class);
                     final String getHint3 = dataSnapshot.child("3").getValue(String.class);
@@ -167,21 +167,21 @@ public class KorakPoKorakActivity extends AppCompatActivity {
                 quizTimer.purge();
                 quizTimer.cancel();
 
-                startActivity(new Intent(KorakPoKorakActivity.this, Games.class));
+                startActivity(new Intent(KorakPoKorakActivity2.this, Games.class));
                 finish();
             }
         });
 
     }
 
-   public void updateKonacno(View view) {
+    public void updateKonacno(View view) {
         final String getKonacno1 = korakPoKorakHint.get(0).getKonacno1();
         if(konacno1.getText().toString().equals(getKonacno1)) {
             konacno1.setText(korakPoKorakHint.get(0).getKonacno1());
             konacno1.setBackgroundResource(R.drawable.round_green_reveal);
             getPoints();
 
-            Intent intent = new Intent(KorakPoKorakActivity.this, KorakPoKorakResults.class);
+            Intent intent = new Intent(KorakPoKorakActivity2.this, KorakPoKorakResults2.class);
             intent.putExtra("score", getPoints());
             startActivity(intent);
 
@@ -190,23 +190,23 @@ public class KorakPoKorakActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Netacan odgovor", Toast.LENGTH_SHORT).show();
         }
 
-   }
+    }
 
-   private int getPoints() {
+    private int getPoints() {
         int score = 0;
 
 
-       if (column / 2 == 0) {
-           score = 20;
-       } else if (column / 2 == 1) {
-           score = 15;
-       } else if (column / 2 == 2) {
-           score = 10;
-       }
+        if (column / 2 == 0) {
+            score = 20;
+        } else if (column / 2 == 1) {
+            score = 15;
+        } else if (column / 2 == 2) {
+            score = 10;
+        }
 
-       Toast.makeText(getApplicationContext(), "Osvojili ste " + score + "poena", Toast.LENGTH_LONG).show();
-       return score;
-       }
+        Toast.makeText(getApplicationContext(), "Osvojili ste " + score + "poena", Toast.LENGTH_LONG).show();
+        return score;
+    }
 
 
 
@@ -225,8 +225,8 @@ public class KorakPoKorakActivity extends AppCompatActivity {
                     quizTimer.purge();
                     quizTimer.cancel();
 
-                    Toast.makeText(KorakPoKorakActivity.this, "Time over!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(KorakPoKorakActivity.this, KorakPoKorakResults.class);
+                    Toast.makeText(KorakPoKorakActivity2.this, "Time over!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(KorakPoKorakActivity2.this, KorakPoKorakResults2.class);
                     intent.putExtra("score", getPoints());
                     startActivity(intent);
                 }
@@ -263,7 +263,7 @@ public class KorakPoKorakActivity extends AppCompatActivity {
         quizTimer.purge();
         quizTimer.cancel();
 
-        startActivity(new Intent(KorakPoKorakActivity.this, Games.class));
+        startActivity(new Intent(KorakPoKorakActivity2.this, Games.class));
         finish();
     }
 

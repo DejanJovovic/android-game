@@ -8,36 +8,39 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-public class KorakPoKorakResults extends AppCompatActivity {
+
+public class AsosijacijeResults2 extends AppCompatActivity {
+
     private String selectedGameName = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_korak_po_korak_results);
+        setContentView(R.layout.activity_asosijacije_results2);
 
-        final AppCompatButton startNewBtn = findViewById(R.id.startNewQuizBtnKorakPoKorak);
-        final TextView totalScore = findViewById(R.id.totalScoreKorakPoKorak);
+        final AppCompatButton startNewBtn = findViewById(R.id.startNewQuizBtnAsosijacije2);
+        final TextView totalScore = findViewById(R.id.totalScoreAsosijacije2);
 
-        final int getPoints = getIntent().getIntExtra("totalScore", 0);
+        final int getTotalScore = getIntent().getIntExtra("totalScore", 0);
 
-        totalScore.setText(String.valueOf(getPoints));
+        totalScore.setText(String.valueOf(getTotalScore));
+
 
         startNewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                selectedGameName = "Korak po Korak";
-                Intent intent = new Intent(KorakPoKorakResults.this, KorakPoKorakActivity2.class);
+
+                selectedGameName = "Skocko";
+                Intent intent = new Intent(AsosijacijeResults2.this, Skocko.class);
                 intent.putExtra("selectedGame", selectedGameName);
                 startActivity(intent);
             }
         });
 
-
     }
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(KorakPoKorakResults.this, Games.class));
+        startActivity(new Intent(AsosijacijeResults2.this, Games.class));
         finish();
     }
 }

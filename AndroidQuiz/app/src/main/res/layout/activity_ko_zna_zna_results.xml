@@ -79,7 +79,7 @@
         android:id="@+id/startNewQuizBtn"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="Start Asosijacije"
+        android:text="Start Spojnice"
         android:textColor="#FFFFFF"
         android:background="@drawable/round_green"
         android:layout_alignParentBottom="true"
