@@ -21,7 +21,9 @@ public class MojBroj extends AppCompatActivity {
     boolean generated = false;
     TextView timerText;
     CountDownTimer timeLeft;
+    CountDownTimer generateTimer;
     List<Button> input = new LinkedList<>();
+    int currentNumber = 0;
 
     void initTimer() {
         timerText = findViewById(R.id.timeLeft);
@@ -130,8 +132,10 @@ public class MojBroj extends AppCompatActivity {
 
     void genNumbers() {
         if (generated) return;
-        Button result = findViewById(R.id.finalResult);
-        result.setText("" + Random.Default.nextInt(2, 1000));
+        if (currentNumber == 0) {
+            Button result = findViewById(R.id.finalResult);
+            result.setText("" + Random.Default.nextInt(2, 1000));
+        }
         String[] numbers = {"0", "0", "0", "0", "0", "0"};
         String[] singleDigits = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
         String[] mediumDigits = {"10", "15", "20"};
@@ -143,32 +147,35 @@ public class MojBroj extends AppCompatActivity {
         Button mediumDigit = findViewById(R.id.mediumDigit);
         Button bigDigit = findViewById(R.id.bigDigit);
 
-        for (int i = 0; i < 6; i++) {
-                int idx = 0;
-                if (i < 4) {
-                    idx = Random.Default.nextInt(singleDigits.length);
-                    numbers[i] = singleDigits[idx];
-                    if (i == 0) {
-                        singleDigit0.setText(numbers[i]);
-                    } else if (i == 1) {
-                        singleDigit1.setText(numbers[i]);
-                    } else if (i == 2) {
-                        singleDigit2.setText(numbers[i]);
-                    } else if (i == 3) {
-                        singleDigit3.setText(numbers[i]);
-                    }
-                } else if (i == 4) {
-                    idx = Random.Default.nextInt(mediumDigits.length);
-                    numbers[i] = mediumDigits[idx];
-                    mediumDigit.setText(numbers[i]);
-                } else if (i == 5) {
-                    idx = Random.Default.nextInt(bigDigits.length);
-                    numbers[i] = bigDigits[idx];
-                    bigDigit.setText(numbers[i]);
-                }
+        int idx = 0;
+        if (currentNumber> 0 && currentNumber < 5) {
+            idx = Random.Default.nextInt(singleDigits.length);
+            numbers[currentNumber-1] = singleDigits[idx];
+            if (currentNumber == 1) {
+                singleDigit0.setText(numbers[currentNumber-1]);
+            } else if (currentNumber == 2) {
+                singleDigit1.setText(numbers[currentNumber-1]);
+            } else if (currentNumber == 3) {
+                singleDigit2.setText(numbers[currentNumber-1]);
+            } else if (currentNumber == 4) {
+                singleDigit3.setText(numbers[currentNumber-1]);
+            }
+        } else if (currentNumber == 5) {
+            idx = Random.Default.nextInt(mediumDigits.length);
+            numbers[currentNumber-1] = mediumDigits[idx];
+            mediumDigit.setText(numbers[currentNumber-1]);
+        } else if (currentNumber == 6) {
+            idx = Random.Default.nextInt(bigDigits.length);
+            numbers[currentNumber-1] = bigDigits[idx];
+            bigDigit.setText(numbers[currentNumber-1]);
         }
-        enableButtons();
-        generated = true;
+        if (currentNumber == 6) {
+            enableButtons();
+            generated = true;
+        } else {
+            currentNumber ++;
+        }
+
     }
 
     void enableButtons() {
@@ -229,17 +236,20 @@ public class MojBroj extends AppCompatActivity {
         setTitle("Moj broj");
         init();
         initTimer();
-        CountDownTimer timer = new CountDownTimer(5000, 1000) {
+        generateTimer = new CountDownTimer(5000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
             }
 
             @Override
             public void onFinish() {
-                genNumbers();
+                if (!generated) {
+                    genNumbers();
+                    generateTimer.start();
+                }
             }
         };
-        timer.start();
+        generateTimer.start();
         Button result = findViewById(R.id.finalResult);
         Button finish = findViewById(R.id.finishBtn);
         finish.setOnClickListener(v -> {
@@ -258,7 +268,8 @@ public class MojBroj extends AppCompatActivity {
         Button stopBtn = findViewById(R.id.stopBtn);
         stopBtn.setOnClickListener(v -> {
             genNumbers();
-            timer.cancel();
+            generateTimer.cancel();
+            generateTimer.start();
         });
     }
 
