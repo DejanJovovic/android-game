@@ -12,11 +12,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class SignUpPage extends AppCompatActivity {
 
@@ -30,6 +35,10 @@ public class SignUpPage extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     FirebaseUser mUser;
+
+    private FirebaseDatabase firebaseDatabase;
+
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +59,26 @@ public class SignUpPage extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
 
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String getUsername = inputUsername.getText().toString();
+                String getEmail = inputEmail.getText().toString();
+                String getPassword = inputPassword.getText().toString();
+                String getUid = mAuth.getUid();
+
+                HashMap<String, Object> hashMap = new HashMap<>();
+                hashMap.put("username", getUsername);
+                hashMap.put("email", getEmail);
+                hashMap.put("password", getPassword);
+
+                databaseReference.child("Users").child(getUid)
+                                .setValue(hashMap);
+
+
                 PerformAuth();
             }
         });
@@ -89,7 +114,7 @@ public class SignUpPage extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()) {
-                        sendUserToHomeActivity();
+                        sendUserToLogIn();
                         progressDialog.dismiss();
                         Toast.makeText(SignUpPage.this, "Registration Successful", Toast.LENGTH_SHORT).show();
                     } else {
@@ -102,8 +127,8 @@ public class SignUpPage extends AppCompatActivity {
 
     }
 
-    private void sendUserToHomeActivity() {
-       Intent intent = new Intent(SignUpPage.this, HomePage.class);
+    private void sendUserToLogIn() {
+       Intent intent = new Intent(SignUpPage.this, LogInPage.class);
        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
        startActivity(intent);
     }
