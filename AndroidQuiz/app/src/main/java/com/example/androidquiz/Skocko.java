@@ -1,5 +1,6 @@
 package com.example.androidquiz;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -17,6 +18,7 @@ import java.util.Random;
 
 public class Skocko extends AppCompatActivity {
 
+    boolean isHost;
     TextView[] results = new TextView[6];
     ImageView[][] slots = new ImageView[6][4];
     int[][] guesses = new int[6][4];
@@ -243,7 +245,11 @@ public class Skocko extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_skocko);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        isHost = getIntent().getExtras().getBoolean("isHost");
         setTitle("Skocko");
         initTimer();
         initResult();
@@ -254,6 +260,9 @@ public class Skocko extends AppCompatActivity {
         nextGame.setOnClickListener(view -> {
 
             Intent intent = new Intent(Skocko.this, KorakPoKorakActivity.class);
+            Bundle extras = new Bundle();
+            extras.putBoolean("isHost", isHost);
+            intent.putExtras(extras);
             startActivity(intent);
         });
     }

@@ -16,10 +16,10 @@ io.on('connection', (socket) => {
         let count = 0;
         while (!roomCreated && count < 10) {
             const roomId = Math.random().toString(36).substring(2, 7);
-            if (rooms.includes(roomId)) {
+            if (rooms.findIndex(r => r.roomId === roomId) !== -1) {
                 count++;
             } else {
-                rooms.push(roomId);
+                rooms.push({roomId: roomId, host: socket.id});
                 socket.join(roomId);
                 console.log("Room created: " + roomId);
                 socket.emit("roomCreated", roomId);
@@ -30,7 +30,7 @@ io.on('connection', (socket) => {
     
     socket.on("joinRoom", (roomId) => {
         console.log("Room joined: " + roomId);
-        if (rooms.includes(roomId)) {
+        if (rooms.findIndex(r => r.roomId === roomId) !== -1) {
             socket.join(roomId);
             socket.emit("roomJoined", roomId);
             io.to(roomId).emit("startGame");
@@ -41,12 +41,15 @@ io.on('connection', (socket) => {
 
     socket.on("destroyRoom", roomId => {
         console.log("Room destroyed: " + roomId);
-        if (rooms.includes(roomId)) {
-            rooms.splice(rooms.indexOf(roomId), 1);
+        if (rooms.findIndex(r => r.roomId === roomId) !== -1) {
+            rooms.splice(rooms.findIndex(r => r.roomId === roomId), 1);
             io.to(roomId).emit("roomDestroyed");
         }
     });
 
+    socket.on("mojBroj_generateNumber", (roomId, num, idx) => {
+        io.to(roomId).emit("mojBroj_numberGenerated", num, idx);
+    })
 });
 
 

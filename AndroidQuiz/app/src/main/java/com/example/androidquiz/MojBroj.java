@@ -1,13 +1,23 @@
 package com.example.androidquiz;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.androidquiz.network.WebSocket;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -15,9 +25,19 @@ import java.util.List;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 
+import io.socket.client.Socket;
 import kotlin.random.Random;
 
-public class MojBroj extends AppCompatActivity {
+public class MojBroj extends AppCompatActivity implements SensorListener {
+    boolean isHost;
+    String roomId;
+    private Socket socket;
+    private SensorManager sensorManager;
+    private static final int SHAKE_THRESHOLD = 800;
+    private float lastX;
+    private float lastY;
+    private float lastZ;
+    private long lastTime;
     boolean generated = false;
     TextView timerText;
     CountDownTimer timeLeft;
@@ -41,7 +61,21 @@ public class MojBroj extends AppCompatActivity {
         timeLeft.start();
     }
 
+    void initSocket() {
+        if (socket == null) {
+            return;
+        }
+        socket.on("mojBroj_numberGenerated", args -> {
+            String number = (String) args[0];
+            int idx = (Integer) args[1];
+            runOnUiThread(() -> {
+                setNumber(number, idx);
+            });
+        });
+    }
+
     void init() {
+        socket = WebSocket.getSocket();
         Button singleDigit0 = findViewById(R.id.singleDigit0);
         Button singleDigit1 = findViewById(R.id.singleDigit1);
         Button singleDigit2 = findViewById(R.id.singleDigit2);
@@ -132,49 +166,59 @@ public class MojBroj extends AppCompatActivity {
 
     void genNumbers() {
         if (generated) return;
-        if (currentNumber == 0) {
-            Button result = findViewById(R.id.finalResult);
-            result.setText("" + Random.Default.nextInt(2, 1000));
-        }
-        String[] numbers = {"0", "0", "0", "0", "0", "0"};
+
         String[] singleDigits = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
         String[] mediumDigits = {"10", "15", "20"};
         String[] bigDigits = {"25", "50", "75", "100"};
+
+        int idx = 0;
+        String generatedNumber = null;
+        if (currentNumber == 0) {
+            generatedNumber = "" + Random.Default.nextInt(2, 1000);
+        } else if (currentNumber> 0 && currentNumber < 5) {
+            idx = Random.Default.nextInt(singleDigits.length);
+            generatedNumber = singleDigits[idx];
+        } else if (currentNumber == 5) {
+            idx = Random.Default.nextInt(mediumDigits.length);
+            generatedNumber = mediumDigits[idx];
+        } else if (currentNumber == 6) {
+            idx = Random.Default.nextInt(bigDigits.length);
+            generatedNumber = bigDigits[idx];
+        }
+        setNumber(generatedNumber, currentNumber);
+        if (socket != null) {
+            socket.emit("mojBroj_generateNumber", roomId, generatedNumber, currentNumber);
+        }
+        currentNumber ++;
+    }
+
+    void setNumber(String number, int idx) {
         Button singleDigit0 = findViewById(R.id.singleDigit0);
         Button singleDigit1 = findViewById(R.id.singleDigit1);
         Button singleDigit2 = findViewById(R.id.singleDigit2);
         Button singleDigit3 = findViewById(R.id.singleDigit3);
         Button mediumDigit = findViewById(R.id.mediumDigit);
         Button bigDigit = findViewById(R.id.bigDigit);
+        Button result = findViewById(R.id.finalResult);
 
-        int idx = 0;
-        if (currentNumber> 0 && currentNumber < 5) {
-            idx = Random.Default.nextInt(singleDigits.length);
-            numbers[currentNumber-1] = singleDigits[idx];
-            if (currentNumber == 1) {
-                singleDigit0.setText(numbers[currentNumber-1]);
-            } else if (currentNumber == 2) {
-                singleDigit1.setText(numbers[currentNumber-1]);
-            } else if (currentNumber == 3) {
-                singleDigit2.setText(numbers[currentNumber-1]);
-            } else if (currentNumber == 4) {
-                singleDigit3.setText(numbers[currentNumber-1]);
-            }
-        } else if (currentNumber == 5) {
-            idx = Random.Default.nextInt(mediumDigits.length);
-            numbers[currentNumber-1] = mediumDigits[idx];
-            mediumDigit.setText(numbers[currentNumber-1]);
-        } else if (currentNumber == 6) {
-            idx = Random.Default.nextInt(bigDigits.length);
-            numbers[currentNumber-1] = bigDigits[idx];
-            bigDigit.setText(numbers[currentNumber-1]);
-        }
-        if (currentNumber == 6) {
+        if (idx == 0) {
+            result.setText(number);
+        } else if (idx == 1) {
+            singleDigit0.setText(number);
+        } else if (idx == 2) {
+            singleDigit1.setText(number);
+        } else if (idx == 3) {
+            singleDigit2.setText(number);
+        } else if (idx == 4) {
+            singleDigit3.setText(number);
+        } else if (idx == 5) {
+            mediumDigit.setText(number);
+        } else if (idx == 6) {
             enableButtons();
-            generated = true;
-        } else {
-            currentNumber ++;
+           generated = true;
+            bigDigit.setText(number);
         }
+
 
     }
 
@@ -232,10 +276,19 @@ public class MojBroj extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_moj_broj);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        isHost = getIntent().getExtras().getBoolean("isHost");
+        roomId = getIntent().getExtras().getString("roomId");
+        Toast.makeText(this, "Host:" + isHost, Toast.LENGTH_LONG).show();
         setTitle("Moj broj");
         init();
         initTimer();
+        initSocket();
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        sensorManager.registerListener(this, SensorManager.SENSOR_ACCELEROMETER, SensorManager.SENSOR_DELAY_GAME);
         generateTimer = new CountDownTimer(5000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -249,7 +302,9 @@ public class MojBroj extends AppCompatActivity {
                 }
             }
         };
-        generateTimer.start();
+        if (isHost) {
+            generateTimer.start();
+        }
         Button result = findViewById(R.id.finalResult);
         Button finish = findViewById(R.id.finishBtn);
         finish.setOnClickListener(v -> {
@@ -266,11 +321,15 @@ public class MojBroj extends AppCompatActivity {
         });
 
         Button stopBtn = findViewById(R.id.stopBtn);
+        if (!isHost) {
+            stopBtn.setEnabled(false);
+        }
         stopBtn.setOnClickListener(v -> {
             genNumbers();
             generateTimer.cancel();
             generateTimer.start();
         });
+
     }
 
     @Override
@@ -278,4 +337,36 @@ public class MojBroj extends AppCompatActivity {
         startActivity(new Intent(MojBroj.this, Games.class));
         finish();
     }
+
+    @Override
+    public void onSensorChanged(int sensor, float[] values) {
+        if (sensor != SensorManager.SENSOR_ACCELEROMETER) {
+            return;
+        }
+        long currentTime = System.currentTimeMillis();
+        if ((currentTime - lastTime) > 500) {
+            long delta = currentTime - lastTime;
+            lastTime = currentTime;
+
+            float x = values[SensorManager.DATA_X];
+            float y = values[SensorManager.DATA_Y];
+            float z = values[SensorManager.DATA_Z];
+            float speed = Math.abs(x + y + z - lastX - lastY - lastZ) / delta * 10000;
+            if (speed > SHAKE_THRESHOLD && isHost) {
+                genNumbers();
+                generateTimer.cancel();
+                generateTimer.start();
+            }
+            lastX = x;
+            lastY = y;
+            lastZ = z;
+
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(int sensor, int accuracy) {
+
+    }
+
 }

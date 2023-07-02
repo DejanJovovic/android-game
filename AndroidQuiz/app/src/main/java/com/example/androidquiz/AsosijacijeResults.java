@@ -11,12 +11,14 @@ import android.widget.TextView;
 
 public class AsosijacijeResults extends AppCompatActivity {
 
+    boolean isHost;
     private String selectedGameName = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_asosijacije_results);
 
+        isHost = getIntent().getExtras().getBoolean("isHost");
         final AppCompatButton startNewBtn = findViewById(R.id.startNewQuizBtnAsosijacije);
         final TextView totalScore = findViewById(R.id.totalScoreAsosijacije);
 
@@ -32,6 +34,7 @@ public class AsosijacijeResults extends AppCompatActivity {
 
                 selectedGameName = "Asosijacije";
                 Intent intent = new Intent(AsosijacijeResults.this, AsosijacijeActivity2.class);
+                intent.putExtra("isHost", isHost);
                 intent.putExtra("selectedGame", selectedGameName);
                 startActivity(intent);
             }

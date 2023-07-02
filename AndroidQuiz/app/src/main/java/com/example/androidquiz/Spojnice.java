@@ -1,6 +1,7 @@
 package com.example.androidquiz;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -25,6 +26,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Spojnice extends AppCompatActivity {
+    boolean isHost;
     SpojniceModel model = new SpojniceModel();
     List<Button> leftBtns = new ArrayList<>();
     List<Button> rightBtns = new ArrayList<>();
@@ -104,6 +106,9 @@ public class Spojnice extends AppCompatActivity {
         timer1.cancel();
         nextGameBtn.setOnClickListener(v1 -> {
             Intent intent = new Intent(Spojnice.this, AsosijacijeActivity.class);
+            Bundle extras = new Bundle();
+            extras.putBoolean("isHost", isHost);
+            intent.putExtras(extras);
             startActivity(intent);
         });
     }
@@ -178,7 +183,11 @@ public class Spojnice extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spojnice);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        isHost = getIntent().getExtras().getBoolean("isHost");
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         setTitle("Spojnice");
         initTimer();
         loadAnswers();

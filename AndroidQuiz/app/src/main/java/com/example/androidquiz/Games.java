@@ -1,5 +1,6 @@
 package com.example.androidquiz;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -16,7 +17,10 @@ public class Games extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_games);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         setTitle("Games");
 
         final LinearLayout Ko_Zna_Zna = findViewById(R.id.koZnaZnaLayout);
@@ -85,6 +89,10 @@ public class Games extends AppCompatActivity {
 
         mojBroj.setOnClickListener(v -> {
             Intent intent = new Intent(Games.this, MojBroj.class);
+            Bundle extras = new Bundle();
+            extras.putString("roomId", "");
+            extras.putBoolean("isHost", true);
+            intent.putExtras(extras);
             startActivity(intent);
         });
 
@@ -106,8 +114,13 @@ public class Games extends AppCompatActivity {
                 }
             }
         });
+    }
 
-
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, HomePage.class);
+        startActivity(intent);
+        this.finish();
     }
 
 }

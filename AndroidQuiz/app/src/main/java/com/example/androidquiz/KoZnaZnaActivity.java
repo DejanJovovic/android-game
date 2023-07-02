@@ -28,6 +28,7 @@ import java.util.TimerTask;
 
 public class KoZnaZnaActivity extends AppCompatActivity {
 
+    boolean isHost;
     private TextView questions;
     private TextView question;
 
@@ -50,6 +51,7 @@ public class KoZnaZnaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ko_zna_zna);
+        isHost = getIntent().getExtras().getBoolean("isHost");
 
         final String getSelectedGameName = getIntent().getStringExtra("selectedGame");
 
@@ -268,6 +270,9 @@ public class KoZnaZnaActivity extends AppCompatActivity {
         }
         else {
             Intent intent = new Intent(KoZnaZnaActivity.this, KoZnaZnaResults.class);
+            Bundle extras = new Bundle();
+            extras.putBoolean("isHost", isHost);
+            intent.putExtras(extras);
             intent.putExtra("correct", getCorrectAnswers());
             intent.putExtra("incorrect", getInCorrectAnswers());
             intent.putExtra("score", getTotalScore());
@@ -294,6 +299,9 @@ public class KoZnaZnaActivity extends AppCompatActivity {
                     Toast.makeText(KoZnaZnaActivity.this, "Time over!", Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(KoZnaZnaActivity.this, KoZnaZnaResults.class);
+                    Bundle extras = new Bundle();
+                    extras.putBoolean("isHost", isHost);
+                    intent.putExtras(extras);
                     intent.putExtra("correct", getCorrectAnswers());
                     intent.putExtra("incorrect", getInCorrectAnswers());
                     intent.putExtra("score", getTotalScore());
