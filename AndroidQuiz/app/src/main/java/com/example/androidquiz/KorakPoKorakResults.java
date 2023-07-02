@@ -9,12 +9,14 @@ import android.view.View;
 import android.widget.TextView;
 
 public class KorakPoKorakResults extends AppCompatActivity {
+    boolean isHost;
     private String selectedGameName = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_korak_po_korak_results);
 
+        isHost = getIntent().getExtras().getBoolean("isHost");
         final AppCompatButton startNewBtn = findViewById(R.id.startNewQuizBtnKorakPoKorak);
         final TextView totalScore = findViewById(R.id.totalScoreKorakPoKorak);
 
@@ -28,6 +30,7 @@ public class KorakPoKorakResults extends AppCompatActivity {
                 selectedGameName = "Korak po Korak";
                 Intent intent = new Intent(KorakPoKorakResults.this, KorakPoKorakActivity2.class);
                 intent.putExtra("selectedGame", selectedGameName);
+                intent.putExtra("isHost", isHost);
                 startActivity(intent);
             }
         });

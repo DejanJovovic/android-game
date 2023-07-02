@@ -27,7 +27,7 @@ import java.util.TimerTask;
 
 public class AsosijacijeActivity2 extends AppCompatActivity {
 
-
+    boolean isHost;
     private AppCompatButton btnA1, btnA2, btnA3, btnA4;
     private AppCompatButton btnB1, btnB2, btnB3, btnB4;
     private AppCompatButton btnC1, btnC2, btnC3, btnC4;
@@ -55,7 +55,7 @@ public class AsosijacijeActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_asosijacije2);
 
-
+        isHost = getIntent().getExtras().getBoolean("isHost");
         final ImageView backBtnAsosijacije = findViewById(R.id.backBtnAsosijacije2);
         final TextView timerAsosijacije = findViewById(R.id.timerAsosijacije2);
         final TextView selectedGame = findViewById(R.id.gameNameAsosijacije2);
@@ -318,6 +318,9 @@ public class AsosijacijeActivity2 extends AppCompatActivity {
             getPointsKonacno();
             Toast.makeText(getApplicationContext(), "Osvojili ste " + score + "poena", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(AsosijacijeActivity2.this, AsosijacijeResults2.class);
+            Bundle extras = new Bundle();
+            extras.putBoolean("isHost", isHost);
+            intent.putExtras(extras);
             startActivity(intent);
 
 

@@ -10,12 +10,14 @@ import android.widget.TextView;
 
 public class KoZnaZnaResults extends AppCompatActivity {
 
+    boolean isHost;
     private String selectedGameName = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ko_zna_zna_results);
 
+        isHost = getIntent().getExtras().getBoolean("isBoolean");
         final AppCompatButton startNewBtn = findViewById(R.id.startNewQuizBtn);
         final TextView correctAnswer = findViewById(R.id.correctAnswers);
         final TextView incorrectAnswer = findViewById(R.id.incorrectAnswers);
@@ -39,6 +41,7 @@ public class KoZnaZnaResults extends AppCompatActivity {
 
                 Intent intent = new Intent(KoZnaZnaResults.this, Spojnice.class);
                 intent.putExtra("selectedGame", selectedGameName);
+                intent.putExtra("isHost", isHost);
                 startActivity(intent);
             }
         });

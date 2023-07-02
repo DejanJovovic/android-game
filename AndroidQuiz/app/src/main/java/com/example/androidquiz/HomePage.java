@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.BoringLayout;
 import android.text.Layout;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +26,8 @@ import io.socket.client.Socket;
 
 public class HomePage extends AppCompatActivity {
     Socket socket;
+    boolean isHost = true;
+    String roomId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +47,8 @@ public class HomePage extends AppCompatActivity {
         });
 
         socket.on("roomCreated", args -> {
-            String roomId = (String) args[0];
+            roomId = (String) args[0];
+            isHost = true;
             runOnUiThread(() -> {
                 AlertDialog.Builder roomDialog = new AlertDialog.Builder(this);
                 TextView roomTextView = new TextView(this);
@@ -68,19 +72,26 @@ public class HomePage extends AppCompatActivity {
         });
 
         socket.on("roomJoined", args -> {
+            roomId = (String) args[0];
+            isHost = false;
             runOnUiThread(() -> {
                 Toast.makeText(this, "Room joined", Toast.LENGTH_LONG).show();
             });
         });
 
         socket.on("roomNotFound", args -> {
+            roomId = "";
             runOnUiThread(() -> {
                 Toast.makeText(this, "Room not found!", Toast.LENGTH_LONG).show();
             });
         });
 
         socket.on("startGame", args -> {
-            Intent intent = new Intent(this, KoZnaZnaActivity.class);
+            Intent intent = new Intent(this, MojBroj.class);
+            Bundle extras = new Bundle();
+            extras.putBoolean("isHost", isHost);
+            extras.putString("roomId", roomId);
+            intent.putExtras(extras);
             startActivity(intent);
         });
     }

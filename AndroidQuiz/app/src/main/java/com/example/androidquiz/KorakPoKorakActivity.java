@@ -26,7 +26,7 @@ import java.util.TimerTask;
 
 public class KorakPoKorakActivity extends AppCompatActivity {
 
-
+    boolean isHost;
     private AppCompatButton hint1, hint2, hint3, hint4, hint5, hint6, hint7;
 
     private EditText konacno1;
@@ -49,6 +49,7 @@ public class KorakPoKorakActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_korak_po_korak);
 
+        isHost = getIntent().getExtras().getBoolean("isHost");
         final ImageView backBtnKorakPoKorak = findViewById(R.id.backBtnKorakPoKorak);
         final TextView timerKorakPoKorak = findViewById(R.id.timerKorakPoKorak);
         final TextView selectedGame = findViewById(R.id.gameNameKorakPoKorak);
@@ -184,6 +185,7 @@ public class KorakPoKorakActivity extends AppCompatActivity {
 
             Intent intent = new Intent(KorakPoKorakActivity.this, KorakPoKorakResults.class);
             intent.putExtra("score", getPoints());
+            intent.putExtra("isHost", isHost);
             startActivity(intent);
 
         }
@@ -241,6 +243,7 @@ public class KorakPoKorakActivity extends AppCompatActivity {
                     Toast.makeText(KorakPoKorakActivity.this, "Time over!", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(KorakPoKorakActivity.this, KorakPoKorakResults.class);
                     intent.putExtra("score", getPoints());
+                    intent.putExtra("isHost", isHost);
                     startActivity(intent);
                 }
                 else{
