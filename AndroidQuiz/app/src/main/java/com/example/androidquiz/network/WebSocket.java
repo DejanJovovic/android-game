@@ -1,10 +1,5 @@
 package com.example.androidquiz.network;
 
-import android.util.Log;
-
-import com.corundumstudio.socketio.Configuration;
-import com.corundumstudio.socketio.SocketIOServer;
-
 import io.socket.client.IO;
 import io.socket.client.Socket;
 

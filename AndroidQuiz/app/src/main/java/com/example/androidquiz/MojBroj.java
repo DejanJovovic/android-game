@@ -2,13 +2,9 @@ package com.example.androidquiz;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.hardware.Sensor;
-import android.hardware.SensorEventListener;
 import android.hardware.SensorListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
@@ -29,8 +25,10 @@ import io.socket.client.Socket;
 import kotlin.random.Random;
 
 public class MojBroj extends AppCompatActivity implements SensorListener {
+    String opponentSolution = null;
     boolean isHost;
     String roomId;
+    ProgressDialog dialog;
     private Socket socket;
     private SensorManager sensorManager;
     private static final int SHAKE_THRESHOLD = 800;
@@ -71,6 +69,28 @@ public class MojBroj extends AppCompatActivity implements SensorListener {
             runOnUiThread(() -> {
                 setNumber(number, idx);
             });
+        });
+        socket.on("mojBroj_result", args -> {
+            String result = (String) args[0];
+            String id = (String) args[1];
+            if (socket.id().equals(id)) {
+                return;
+            } else {
+                opponentSolution = result;
+            }
+        });
+
+        socket.on("mojBroj_gameFinished", args -> {
+            int hostScore = (Integer) args[0];
+            int guestScore = (Integer) args[1];
+            String closerSolution = (String) args[2];
+            Bundle extras = new Bundle();
+            extras.putInt("hostScore", hostScore);
+            extras.putInt("guestScore", guestScore);
+            extras.putString("solution", closerSolution);
+            Intent intent = new Intent(MojBroj.this, MojBrojResults.class);
+            intent.putExtras(extras);
+            startActivity(intent);
         });
     }
 
@@ -251,13 +271,12 @@ public class MojBroj extends AppCompatActivity implements SensorListener {
         delete.setEnabled(true);
     }
 
-    Double evalSolution() {
+    Double evalSolution(String solution) {
         Context rhino = Context.enter();
         rhino.setOptimizationLevel(-1);
-        TextView solution = findViewById(R.id.userInput);
         try {
             Scriptable scope = rhino.initStandardObjects();
-            Object result = rhino.evaluateString(scope, solution.getText().toString(), "JavaScript", 1, null);
+            Object result = rhino.evaluateString(scope, solution, "JavaScript", 1, null);
             return Double.parseDouble(Context.toString(result));
         } finally {
             Context.exit();
@@ -309,15 +328,58 @@ public class MojBroj extends AppCompatActivity implements SensorListener {
         Button finish = findViewById(R.id.finishBtn);
         finish.setOnClickListener(v -> {
             timeLeft.cancel();
-            Double actual = Double.parseDouble(result.getText().toString());
-            Double guessed = evalSolution();
+            //
             TextView solution = findViewById(R.id.userInput);
-            solution.setText(guessed.toString());
-            if (actual == guessed) {
+            if (opponentSolution == null) {
+                socket.emit("mojBroj_submit", roomId, solution.getText().toString());
+                dialog = ProgressDialog.show(this, "", "Waiting for opponent!", true);
+            } else {
+                double guess = evalSolution(solution.getText().toString());
+                double opponentGuess = evalSolution(opponentSolution);
+                double actual = Double.parseDouble(result.getText().toString());
+                int hostScore = 0;
+                int guestScore = 0;
+                String closerSolution = null;
+                if (guess == opponentGuess) {
+                    closerSolution = solution.getText().toString();
+                    if (guess == actual) {
+                        if (isHost) {
+                            hostScore = 20;
+                        } else {
+                            guestScore = 20;
+                        }
+                    } else if (isHost) {
+                        hostScore = 5;
+                    } else {
+                        guestScore = 5;
+                    }
+                } else {
+                    double myDif = actual - guess;
+                    double opponentDif = actual - opponentGuess;
+                    if (myDif < opponentDif) {
+                        closerSolution = solution.getText().toString();
+                        if (isHost) {
+                            hostScore = 5;
+                        } else {
+                            guestScore = 5;
+                        }
+                    } else if (myDif > opponentDif) {
+                        closerSolution = opponentSolution;
+                        if (isHost) {
+                            guestScore = 5;
+                        } else {
+                            hostScore = 5;
+                        }
+                    }
+                }
+                socket.emit("mojBroj_finishGame", roomId, hostScore, guestScore, closerSolution);
+            }
+
+            /*if (actual == guessed) {
                 Toast.makeText(getApplicationContext(), "Osvojili ste 20 poena!", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(getApplicationContext(), "Osvojili ste 5 poena!", Toast.LENGTH_LONG).show();
-            }
+            }*/
         });
 
         Button stopBtn = findViewById(R.id.stopBtn);

@@ -50,6 +50,16 @@ io.on('connection', (socket) => {
     socket.on("mojBroj_generateNumber", (roomId, num, idx) => {
         io.to(roomId).emit("mojBroj_numberGenerated", num, idx);
     })
+
+    socket.on("mojBroj_submit", (roomId, resultText) => {
+        console.log("Result: " + resultText)
+        io.to(roomId).emit("mojBroj_result", resultText, socket.id);
+    });
+
+    socket.on("mojBroj_finishGame", (roomId, hostScore, guestScore, closerSolution) => {
+        console.log("Game finished");
+        io.to(roomId).emit("mojBroj_gameFinished", hostScore, guestScore, closerSolution);
+    });
 });
 
 
