@@ -44,6 +44,11 @@ public class AsosijacijeActivity2 extends AppCompatActivity {
 
     private int seconds = 0;
 
+    int userSelectedField = 0;
+
+    int score = 0;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -273,36 +278,45 @@ public class AsosijacijeActivity2 extends AppCompatActivity {
         final String getKonacnoD = asosijacijeField.get(0).getKonacnoD();
         final String getKonacno = asosijacijeField.get(0).getKonacno();
 
-        if (konacnoA.getText().toString().equals(getKonacnoA)) {
+        if(konacnoA.getText().toString().equals(getKonacnoA)) {
             konacnoA.setText(asosijacijeField.get(0).getKonacnoA());
             konacnoA.setBackgroundResource(R.drawable.round_green_reveal);
 
-            Toast.makeText(getApplicationContext(), "Osvojiili ste ", Toast.LENGTH_LONG).show();
+            getPoints();
+            Toast.makeText(getApplicationContext(), "Osvojili ste " + score + "poena", Toast.LENGTH_LONG).show();
+        } else if(!konacnoA.getText().toString().equals(getKonacnoA)){
+            score = 0;
         }
         if (konacnoB.getText().toString().equals(getKonacnoB)) {
             konacnoB.setText(asosijacijeField.get(0).getKonacnoB());
             konacnoB.setBackgroundResource(R.drawable.round_green_reveal);
-
-            Toast.makeText(getApplicationContext(), "Osvojiili ste ", Toast.LENGTH_LONG).show();
+            getPoints();
+            Toast.makeText(getApplicationContext(), "Osvojili ste " + score + "poena", Toast.LENGTH_LONG).show();
+        } else if(!konacnoB.getText().toString().equals(getKonacnoB)) {
+            score = 0;
         }
-        if (konacnoC.getText().toString().equals(getKonacnoC)) {
+        if(konacnoC.getText().toString().equals(getKonacnoC)) {
             konacnoC.setText(asosijacijeField.get(0).getKonacnoC());
             konacnoC.setBackgroundResource(R.drawable.round_green_reveal);
-
-            Toast.makeText(getApplicationContext(), "Osvojiili ste ", Toast.LENGTH_LONG).show();
+            getPoints();
+            Toast.makeText(getApplicationContext(), "Osvojili ste " + score + "poena", Toast.LENGTH_LONG).show();
+        } else if(!konacnoC.getText().toString().equals(getKonacnoC)){
+            score = 0;
         }
         if (konacnoD.getText().toString().equals(getKonacnoD)) {
             konacnoD.setText(asosijacijeField.get(0).getKonacnoD());
             konacnoD.setBackgroundResource(R.drawable.round_green_reveal);
+            getPoints();
+            Toast.makeText(getApplicationContext(), "Osvojili ste " + score + "poena", Toast.LENGTH_LONG).show();
 
-            Toast.makeText(getApplicationContext(), "Osvojiili ste ", Toast.LENGTH_LONG).show();
-
+        } else if(!konacnoD.getText().toString().equals(getKonacnoD)){
+            score = 0;
         }
-        if (konacno.getText().toString().equals(getKonacno)) {
+        if(konacno.getText().toString().equals(getKonacno)) {
             konacno.setText(asosijacijeField.get(0).getKonacno());
             konacno.setBackgroundResource(R.drawable.round_green_reveal);
-
-            Toast.makeText(getApplicationContext(), "Osvojiili ste ", Toast.LENGTH_LONG).show();
+            getPointsKonacno();
+            Toast.makeText(getApplicationContext(), "Osvojili ste " + score + "poena", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(AsosijacijeActivity2.this, AsosijacijeResults2.class);
             Bundle extras = new Bundle();
             extras.putBoolean("isHost", isHost);
@@ -310,10 +324,30 @@ public class AsosijacijeActivity2 extends AppCompatActivity {
             startActivity(intent);
 
 
-        } else {
+
+        }
+        else if (!konacno.getText().toString().equals(getKonacno)){
             Toast.makeText(getApplicationContext(), "Netacan odgovor", Toast.LENGTH_SHORT).show();
+            score = 0;
         }
     }
+
+    private int getPoints() {
+
+        if(userSelectedField / 2 == 0) {
+            score += 4;
+        }
+        return score;
+    }
+
+    private int getPointsKonacno() {
+
+        if(userSelectedField / 2 == 0) {
+            score += 10;
+        }
+        return score;
+    }
+
 
 
     private void startTimer(TextView timerTextView) {

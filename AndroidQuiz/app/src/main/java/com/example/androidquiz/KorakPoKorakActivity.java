@@ -39,7 +39,8 @@ public class KorakPoKorakActivity extends AppCompatActivity {
 
     private int seconds = 0;
 
-    int column = 0;
+    int userSelectedField = 0;
+
 
 
 
@@ -194,22 +195,34 @@ public class KorakPoKorakActivity extends AppCompatActivity {
 
    }
 
-   private int getPoints() {
+    private int getPoints(){
         int score = 0;
 
+            if (userSelectedField / 6 == 0) {
+                score = 20;
+            }
+            else if(userSelectedField / 6 ==1) {
+                score = 18;
+            }else if(userSelectedField / 6 ==2) {
+            score = 16;
+        }
+            else if(userSelectedField / 6 ==3) {
+            score = 14;
+        }
+            else if(userSelectedField / 6 ==4) {
+            score = 12;
+        }
+            else if(userSelectedField / 6 ==5) {
+            score = 10;
+        }
+            else if(userSelectedField / 6 ==6) {
+            score = 8;
+        }
 
-       if (column / 2 == 0) {
-           score = 20;
-       } else if (column / 2 == 1) {
-           score = 15;
-       } else if (column / 2 == 2) {
-           score = 10;
-       }
+        Toast.makeText(getApplicationContext(), "Osvojili ste " + score + "poena", Toast.LENGTH_LONG).show();
+        return score;
 
-       Toast.makeText(getApplicationContext(), "Osvojili ste " + score + "poena", Toast.LENGTH_LONG).show();
-       return score;
-       }
-
+    }
 
 
     private void startTimer(TextView timerTextView){
