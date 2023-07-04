@@ -1,5 +1,6 @@
 package com.example.androidquiz;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,12 +20,26 @@ import android.widget.Toast;
 import com.corundumstudio.socketio.SocketIOServer;
 import com.example.androidquiz.network.NetworkUtils;
 import com.example.androidquiz.network.WebSocket;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.logging.Logger;
 
 import io.socket.client.Socket;
 
+
 public class HomePage extends AppCompatActivity {
+
+    private FirebaseUser user;
+    private FirebaseAuth mAuth;
+    private DatabaseReference reference;
+
+    String userId;
     Socket socket;
     boolean isHost = true;
     String roomId = "";
@@ -34,6 +49,33 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         setTitle("Home");
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+        userId = user.getUid();
+
+        final TextView userTextView = findViewById(R.id.userTxt);
+
+        reference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User userProfile = snapshot.getValue(User.class);
+
+                if(userProfile != null) {
+                    String username = userProfile.username;
+
+                    userTextView.setText("Welcome " + username);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(HomePage.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
     }
 
     private void initSocket() {

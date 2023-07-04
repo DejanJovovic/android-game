@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,14 +26,17 @@ import java.util.HashMap;
 
 public class UserProfile extends AppCompatActivity {
 
-
+    private FirebaseUser user;
     private FirebaseAuth mAuth;
     private DatabaseReference reference;
 
-    private TextView email, username;
+
     private Button logout;
 
-    String userId;
+    private String userId;
+
+    ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,13 +49,32 @@ public class UserProfile extends AppCompatActivity {
 
         logout = (Button) findViewById(R.id.btnUserLogOut);
 
-        username = findViewById(R.id.usernameUser);
-        email = findViewById(R.id.emailUser);
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+        userId = user.getUid();
 
-        mAuth = FirebaseAuth.getInstance();
-        reference = FirebaseDatabase.getInstance().getReference();
+        final TextView userNameTextView = findViewById(R.id.usernameUser);
+        final TextView emailTextView = findViewById(R.id.emailUser);
 
-        userId = mAuth.getCurrentUser().getUid();
+        reference.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User userProfile = snapshot.getValue(User.class);
+                if(userProfile != null) {
+                    String username = userProfile.username;
+                    String email = userProfile.email;
+
+                    userNameTextView.setText(username);
+                    emailTextView.setText(email);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(UserProfile.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
 
         logout.setOnClickListener(new View.OnClickListener() {
@@ -61,5 +85,6 @@ public class UserProfile extends AppCompatActivity {
             }
         });
     }
+
 
 }
