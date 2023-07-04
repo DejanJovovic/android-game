@@ -9,20 +9,20 @@ import android.hardware.SensorListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.androidquiz.network.WebSocket;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
 
 import io.socket.client.Socket;
-import kotlin.random.Random;
 
 public class MojBroj extends AppCompatActivity implements SensorListener {
     String opponentSolution = null;
@@ -194,15 +194,15 @@ public class MojBroj extends AppCompatActivity implements SensorListener {
         int idx = 0;
         String generatedNumber = null;
         if (currentNumber == 0) {
-            generatedNumber = "" + Random.Default.nextInt(2, 1000);
+            generatedNumber = "" + (new Random().nextInt(998) + 2);
         } else if (currentNumber> 0 && currentNumber < 5) {
-            idx = Random.Default.nextInt(singleDigits.length);
+            idx = new Random().nextInt(singleDigits.length);
             generatedNumber = singleDigits[idx];
         } else if (currentNumber == 5) {
-            idx = Random.Default.nextInt(mediumDigits.length);
+            idx = new Random().nextInt(mediumDigits.length);
             generatedNumber = mediumDigits[idx];
         } else if (currentNumber == 6) {
-            idx = Random.Default.nextInt(bigDigits.length);
+            idx = new Random().nextInt(bigDigits.length);
             generatedNumber = bigDigits[idx];
         }
         setNumber(generatedNumber, currentNumber);
@@ -301,7 +301,6 @@ public class MojBroj extends AppCompatActivity implements SensorListener {
         }
         isHost = getIntent().getExtras().getBoolean("isHost");
         roomId = getIntent().getExtras().getString("roomId");
-        Toast.makeText(this, "Host:" + isHost, Toast.LENGTH_LONG).show();
         setTitle("Moj broj");
         init();
         initTimer();
@@ -331,8 +330,27 @@ public class MojBroj extends AppCompatActivity implements SensorListener {
             //
             TextView solution = findViewById(R.id.userInput);
             if (opponentSolution == null) {
-                socket.emit("mojBroj_submit", roomId, solution.getText().toString());
-                dialog = ProgressDialog.show(this, "", "Waiting for opponent!", true);
+                if (socket != null) {
+                    socket.emit("mojBroj_submit", roomId, solution.getText().toString());
+                    dialog = ProgressDialog.show(this, "", "Waiting for opponent!", true);
+                } else {
+                    Log.i("text",solution.getText().toString() );
+                    double guess = evalSolution(solution.getText().toString());
+                    double actual = Double.parseDouble(result.getText().toString());
+                    int hostScore = 0;
+                    if (actual == guess) {
+                        hostScore = 20;
+                    } else {
+                        hostScore = 5;
+                    }
+                    Bundle extras = new Bundle();
+                    extras.putInt("hostScore", hostScore);
+                    extras.putInt("guestScore", 0);
+                    extras.putString("solution", solution.getText().toString());
+                    Intent intent = new Intent(MojBroj.this, MojBrojResults.class);
+                    intent.putExtras(extras);
+                    startActivity(intent);
+                }
             } else {
                 double guess = evalSolution(solution.getText().toString());
                 double opponentGuess = evalSolution(opponentSolution);
@@ -372,14 +390,12 @@ public class MojBroj extends AppCompatActivity implements SensorListener {
                         }
                     }
                 }
-                socket.emit("mojBroj_finishGame", roomId, hostScore, guestScore, closerSolution);
+                if (socket != null){
+                    socket.emit("mojBroj_finishGame", roomId, hostScore, guestScore, closerSolution);
+                }
             }
 
-            /*if (actual == guessed) {
-                Toast.makeText(getApplicationContext(), "Osvojili ste 20 poena!", Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(getApplicationContext(), "Osvojili ste 5 poena!", Toast.LENGTH_LONG).show();
-            }*/
+
         });
 
         Button stopBtn = findViewById(R.id.stopBtn);
